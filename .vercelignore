@@ -1,0 +1,5 @@
+# Vercel function files (if any)
+api/
+
+# Don't ignore node_modules on Vercel
+!node_modules/
