@@ -1,0 +1,65 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'leaflet/dist/leaflet.css';
+
+:root{
+  --udsm-blue: #003366;
+  --udsm-gold: #FFD700;
+}
+
+html,body,#root{
+  height:100%;
+}
+
+body{
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: #F5F5F5;
+}
+
+/* Bottom sheet transitions */
+.bottom-sheet-transition{transition: transform 300ms cubic-bezier(.22,.95,.3,1); will-change: transform;}
+
+.bottom-sheet-handle{height:12px; display:flex; align-items:center; justify-content:center}
+.bottom-sheet-handle-dot{width:40px; height:4px; background:#E5E7EB; border-radius:9999px}
+
+.leaflet-container{height:100vh;width:100%; z-index: 0 !important}
+
+/* Ensure Leaflet panes don't overlay app UI */
+.leaflet-pane { z-index: 0 !important }
+.leaflet-tile, .leaflet-overlay-pane, .leaflet-shadow-pane, .leaflet-marker-pane, .leaflet-overlay-pane { z-index: 0 !important }
+
+/* custom scrollbar styles for modern browsers */
+/* apply to body or any scrollable container */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 4px;
+  border: 2px solid #f1f1f1;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* Hide scrollbars while keeping scroll functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Firefox scrollbar settings */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.3) #f1f1f1;
+}
+
