@@ -344,6 +344,76 @@ const mockLocations = [
       { id: 4, name: 'Mariam Mwakidudu', avatar: 'https://i.pravatar.cc/150?img=49', rating: 2, comment: 'Facilities need renovation.', date: '2026-01-03' },
       { id: 5, name: 'Bakari Mgeni', avatar: 'https://i.pravatar.cc/150?img=39', rating: 3, comment: 'Good security and location.', date: '2026-12-28' }
     ]
+  },
+  { 
+    id: 16, 
+    name: 'Luhanga Hall, Block A', 
+    type: 'Service', 
+    status: 'Open', 
+    coords: [-6.7745, 39.2095], 
+    desc: 'Luhanga Hall, Block A accommodation.',
+    detailedDesc: 'Luhanga Hall Block A is a residential block offering comfortable student accommodation with modern facilities, common study areas, and 24-hour support services.',
+    wifi: true, 
+    ac: false, 
+    parking: false,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: '24/7 (Residence)',
+    population: 'high',
+    reviews: [
+      { id: 1, name: 'Patricia Mwanza', avatar: 'https://i.pravatar.cc/150?img=40', rating: 4, comment: 'Great location and friendly residents.', date: '2026-01-23' },
+      { id: 2, name: 'Daniel Kipchoge', avatar: 'https://i.pravatar.cc/150?img=50', rating: 4, comment: 'Good WiFi connectivity throughout.', date: '2026-01-17' },
+      { id: 3, name: 'Sophie Kasanga', avatar: 'https://i.pravatar.cc/150?img=41', rating: 5, comment: 'Clean rooms and helpful staff.', date: '2026-01-11' },
+      { id: 4, name: 'Marcus Karungi', avatar: 'https://i.pravatar.cc/150?img=51', rating: 4, comment: 'Convenient to lecture halls.', date: '2026-01-05' }
+    ]
+  },
+  { 
+    id: 17, 
+    name: 'Mzizima Vimbweta, Block C', 
+    type: 'Service', 
+    status: 'Open', 
+    coords: [-6.7765, 39.2089], 
+    desc: 'Mzizima Vimbweta, Block C residence.',
+    detailedDesc: 'Mzizima Vimbweta Block C provides spacious residential facilities with excellent amenities, recreational areas, and proximity to academic buildings.',
+    wifi: true, 
+    ac: true, 
+    parking: false,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: '24/7 (Residence)',
+    population: 'high',
+    reviews: [
+      { id: 1, name: 'Amelia Nkosi', avatar: 'https://i.pravatar.cc/150?img=42', rating: 5, comment: 'Best residential block on campus!', date: '2026-01-24' },
+      { id: 2, name: 'Isaac Kiplagat', avatar: 'https://i.pravatar.cc/150?img=52', rating: 4, comment: 'AC keeps rooms cool and comfortable.', date: '2026-01-18' },
+      { id: 3, name: 'Natasha Mwangi', avatar: 'https://i.pravatar.cc/150?img=43', rating: 5, comment: 'Excellent facilities and management.', date: '2026-01-12' },
+      { id: 4, name: 'Victor Okonkwo', avatar: 'https://i.pravatar.cc/150?img=53', rating: 4, comment: 'Safe and secure environment.', date: '2026-01-06' },
+      { id: 5, name: 'Helen Mwale', avatar: 'https://i.pravatar.cc/150?img=44', rating: 5, comment: 'Love living here! Great community.', date: '2026-12-31' }
+    ]
+  },
+  { 
+    id: 18, 
+    name: 'Block A', 
+    type: 'Academic', 
+    status: 'Open', 
+    coords: [-6.7770, 39.2075], 
+    desc: 'Block A lecture and administrative facility.',
+    detailedDesc: 'Block A is a multi-purpose academic building housing lecture halls, tutorial rooms, and departmental offices for various faculties.',
+    wifi: true, 
+    ac: true, 
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Sat: 7:00 AM - 9:00 PM',
+    population: 'high',
+    reviews: [
+      { id: 1, name: 'Rashid Hassan', avatar: 'https://i.pravatar.cc/150?img=45', rating: 4, comment: 'Well-maintained lecture halls.', date: '2026-01-25' },
+      { id: 2, name: 'Jasmine Kamau', avatar: 'https://i.pravatar.cc/150?img=54', rating: 5, comment: 'Great facilities and air conditioning.', date: '2026-01-19' },
+      { id: 3, name: 'Kenneth Mwangi', avatar: 'https://i.pravatar.cc/150?img=46', rating: 4, comment: 'Good WiFi and charging stations.', date: '2026-01-13' },
+      { id: 4, name: 'Comfort Banda', avatar: 'https://i.pravatar.cc/150?img=55', rating: 5, comment: 'Accessible and modern building.', date: '2026-01-07' }
+    ]
   }
 ];
 
