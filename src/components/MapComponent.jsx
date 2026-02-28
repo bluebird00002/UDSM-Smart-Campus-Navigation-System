@@ -49,7 +49,7 @@ function MapController({ center, zoom, selectedLocation }) {
   return null
 }
 
-export default function MapComponent({ center = [-6.7751, 39.2086], locations = [], onSelect, selected, searchQuery = '', recentSearches = [], onNavigationChange, isMobile, theme = 'light', selectionKey = 0 }) {
+export default function MapComponent({ center = [-6.7751, 39.2086], locations = [], onSelect, selected, searchQuery = '', recentSearches = [], onNavigationChange, isMobile, theme = 'light', selectionKey = 0, onCloseSelection }) {
   const mapRef = useRef()
   const [largePopupLocation, setLargePopupLocation] = useState(null)
   const [pathway, setPathway] = useState(null)
@@ -151,6 +151,10 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
     setAnimatePopup(false)
     setTimeout(() => {
       setLargePopupLocation(null)
+      // Reset selected state so clicking the same location again will trigger the effect
+      if (onCloseSelection) {
+        onCloseSelection()
+      }
     }, 300)
   }
 

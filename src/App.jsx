@@ -155,6 +155,7 @@ export default function App(){
           searchQuery={query}
           recentSearches={recentSearches}
           onSelect={handleLocationSelect}
+          onCloseSelection={() => setSelected(null)}
           selected={selected}
           selectionKey={selectionKey}
           onNavigationChange={setIsNavigating}
