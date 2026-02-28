@@ -24,6 +24,7 @@ export default function App(){
   const [filters, setFilters] = useState({Academic:true,Admin:true,Services:true})
   const [advancedFilters, setAdvancedFilters] = useState({features: [], population:'any'})
   const [selected, setSelected] = useState(null)
+  const [selectionKey, setSelectionKey] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -109,6 +110,7 @@ export default function App(){
   const handleLocationSelect = (loc) => {
     if(!loc) return
     setSelected(loc)
+    setSelectionKey(k => k + 1) // Force re-trigger effect even if same location is selected
     setQuery('')
     setSuggestions([])
     // keep recent list (unique, most recent first) and never store "NHIF"
@@ -154,6 +156,7 @@ export default function App(){
           recentSearches={recentSearches}
           onSelect={handleLocationSelect}
           selected={selected}
+          selectionKey={selectionKey}
           onNavigationChange={setIsNavigating}
           isMobile={isMobile}
           theme={theme}

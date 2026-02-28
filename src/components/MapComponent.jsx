@@ -49,7 +49,7 @@ function MapController({ center, zoom, selectedLocation }) {
   return null
 }
 
-export default function MapComponent({ center = [-6.7751, 39.2086], locations = [], onSelect, selected, searchQuery = '', recentSearches = [], onNavigationChange, isMobile, theme = 'light' }) {
+export default function MapComponent({ center = [-6.7751, 39.2086], locations = [], onSelect, selected, searchQuery = '', recentSearches = [], onNavigationChange, isMobile, theme = 'light', selectionKey = 0 }) {
   const mapRef = useRef()
   const [largePopupLocation, setLargePopupLocation] = useState(null)
   const [pathway, setPathway] = useState(null)
@@ -59,11 +59,21 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
 
 
   // open popup when parent changes selected prop
+  // if same location is clicked again, close and reopen for animation
   useEffect(() => {
     if (selected) {
-      openPopup(selected)
+      // If the same location is already open, close it first then reopen
+      if (largePopupLocation && largePopupLocation.id === selected.id) {
+        closePopup()
+        // Reopen after a short delay to see the close animation
+        setTimeout(() => {
+          openPopup(selected)
+        }, 350)
+      } else {
+        openPopup(selected)
+      }
     }
-  }, [selected])
+  }, [selected, selectionKey])
 
 
   // Handle recent search click
