@@ -56,6 +56,7 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
   const [showAllReviews, setShowAllReviews] = useState(false)
   const [animatePopup, setAnimatePopup] = useState(false)
   const [navigationDetails, setNavigationDetails] = useState(null)
+  const [navigationAnimating, setNavigationAnimating] = useState(false)
 
 
   // open popup when parent changes selected prop
@@ -86,44 +87,68 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
     }
   }
 
-  // Handle navigate button click
+  // Handle navigate button click with smooth animation sequence
   const handleNavigate = (destination) => {
     const currentLocation = center
     const pathwayCoords = [currentLocation, destination.coords]
+    
+    // Start navigation animation sequence
+    setNavigationAnimating(true)
+    
+    // Immediately set pathway to show the line
     setPathway(pathwayCoords)
     
+    // Close the popup smoothly without interrupting the animation
+    setAnimatePopup(false)
+    setTimeout(() => {
+      setLargePopupLocation(null)
+      if (onCloseSelection) {
+        onCloseSelection()
+      }
+    }, 300)
+
     // Mock data for estimation
     const mockDistance = Math.floor(Math.random() * 2000) + 500 // 500-2500 meters
     const mockTime = Math.ceil(mockDistance / 100) // Approximate walking time in minutes
     const startLocationName = 'Your Location'
     const endLocationName = destination.name
-    
-    // Set navigation details with destination object
-    setNavigationDetails({
-      time: mockTime,
-      distance: mockDistance,
-      from: startLocationName,
-      to: endLocationName,
-      destination: destination
-    })
-    
-    // Close the popup
-    closePopup()
-    
-    // Notify parent that navigation started
-    if (onNavigationChange) {
-      onNavigationChange(true)
-    }
-    
-    // Zoom/fit map to pathway coordinates
+
+    // Smooth zoom and fit animation
     if (mapRef.current) {
       try {
         const bounds = L.latLngBounds(pathwayCoords)
-        mapRef.current.fitBounds(bounds, { padding: [50, 50], maxZoom: 18, animate: true })
+        // Fit bounds with smooth animation (1 second)
+        mapRef.current.fitBounds(bounds, { 
+          padding: [80, 80], 
+          maxZoom: 18.5, 
+          animate: true,
+          duration: 1 // 1 second animation
+        })
       } catch (e) {
         mapRef.current.setView(destination.coords, 18, { animate: true })
       }
     }
+
+    // After animation completes and user can see the route clearly (1.2 seconds),
+    // smoothly show the navigation details container
+    setTimeout(() => {
+      // Set navigation details with destination object
+      setNavigationDetails({
+        time: mockTime,
+        distance: mockDistance,
+        from: startLocationName,
+        to: endLocationName,
+        destination: destination
+      })
+
+      // Notify parent that navigation started
+      if (onNavigationChange) {
+        onNavigationChange(true)
+      }
+
+      // End animation state
+      setNavigationAnimating(false)
+    }, 1200) // 1.2 seconds - gives users time to see the map zoom
   }
 
   // Close pathway
@@ -264,6 +289,7 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
           setShowAllReviews={setShowAllReviews}
           isMobile={isMobile}
           theme={theme}
+          navigationAnimating={navigationAnimating}
         />
       )}
 
@@ -273,7 +299,7 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
 }
 
 // Large Popup Component with detailed information
-function LargePopup({ location, onClose, onNavigate, animate, showAllReviews, setShowAllReviews, isMobile, theme = 'light' }) {
+function LargePopup({ location, onClose, onNavigate, animate, showAllReviews, setShowAllReviews, isMobile, theme = 'light', navigationAnimating = false }) {
   if (!location) return null
 
   const totalReviews = location.reviews?.length || 0
@@ -447,10 +473,23 @@ const features = [
         <div className={`border-t px-5 py-3 ${theme === 'dark' ? 'border-gray-800 bg-gray-800' : 'border-gray-100 bg-white'}`}>
           <button
             onClick={onNavigate}
-            className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+            disabled={navigationAnimating}
+            className={`w-full py-2.5 ${navigationAnimating ? 'bg-blue-500' : 'bg-blue-600 hover:bg-blue-700'} text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200 ${navigationAnimating ? 'shadow-lg' : 'shadow-md hover:shadow-lg'} ${navigationAnimating ? 'cursor-not-allowed opacity-90' : 'cursor-pointer'}`}
           >
-            <Navigation className="w-4 h-4" />
-            Navigate
+            {navigationAnimating ? (
+              <>
+                <svg className="w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Starting Navigation...
+              </>
+            ) : (
+              <>
+                <Navigation className="w-4 h-4" />
+                Navigate
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -480,8 +519,20 @@ const features = [
 
 // Desktop navigation panel component
 function DesktopNavigationPanel({ navigationDetails, onClose, theme = 'light' }) {
+  const [animateIn, setAnimateIn] = React.useState(false)
+  
+  React.useEffect(() => {
+    // Trigger animation on mount
+    const timer = setTimeout(() => setAnimateIn(true), 50)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
-    <div className={`fixed bottom-0 right-0 m-6 z-[1000] w-80 rounded-2xl shadow-2xl transition-all duration-300 ease-in-out ${theme === 'dark' ? 'bg-gray-900 border border-gray-800' : 'bg-white border border-gray-200'}`}>
+    <div className={`fixed bottom-0 right-0 m-6 z-[1000] w-80 rounded-2xl shadow-2xl transition-all duration-500 ease-out ${
+      animateIn 
+        ? 'opacity-100 translate-y-0' 
+        : 'opacity-0 translate-y-12'
+    } ${theme === 'dark' ? 'bg-gray-900 border border-gray-800' : 'bg-white border border-gray-200'}`}>
       <div className="p-4 space-y-3">
         <div className="flex items-center justify-between">
           <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Navigation</h3>
@@ -528,10 +579,15 @@ function NavigationBottomSheet({ navigationDetails, onClose, theme = 'light' }) 
   const [isMinimized, setIsMinimized] = useState(true)
   const [lastScrollTop, setLastScrollTop] = useState(0)
   const [touchStartY, setTouchStartY] = useState(null)
+  const [animateIn, setAnimateIn] = useState(false)
   const sheetRef = useRef(null)
   const contentRef = useRef(null)
 
-  // smooth height transition handles sliding; no translate to keep sheet visible
+  // Animate in on mount
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimateIn(true), 50)
+    return () => clearTimeout(timer)
+  }, [])
 
 
   const features = [
@@ -586,8 +642,12 @@ function NavigationBottomSheet({ navigationDetails, onClose, theme = 'light' }) 
         ref={sheetRef}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
-        className={`absolute bottom-0 left-0 right-0 rounded-t-3xl shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-in-out ${
+        className={`absolute bottom-0 left-0 right-0 rounded-t-3xl shadow-2xl flex flex-col overflow-hidden transition-all duration-500 ease-out ${
           isMinimized ? 'max-h-[25vh]' : 'max-h-[92vh]'
+        } ${
+          animateIn 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-12'
         } ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`}
         onClick={(e) => e.stopPropagation()}
       >
