@@ -415,6 +415,145 @@ const mockLocations = [
       { id: 4, name: 'Comfort Banda', avatar: 'https://i.pravatar.cc/150?img=55', rating: 5, comment: 'Accessible and modern building.', date: '2026-01-07' }
     ]
   }
+
+  ,{ 
+    id: 19,
+    name: 'Department of Mathematics - Office',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7759, 39.2082],
+    desc: 'Departmental office for Mathematics faculty and student advising.',
+    detailedDesc: 'Handles course scheduling, student advising, and research coordination for the Mathematics department.',
+    wifi: true,
+    ac: false,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'medium',
+    staff: [
+      { name: 'Prof. Amina K.', title: 'Head of Mathematics', availability: 'available', phone: '+255 22 241 0101', email: 'amina.k@udsm.ac.tz' },
+      { name: 'Dr. Paul S.', title: 'Senior Lecturer', availability: 'busy', phone: '+255 22 241 0102', email: 'paul.s@udsm.ac.tz' }
+    ],
+    reviews: [
+      { id: 1, name: 'Student A', rating: 5, comment: 'Helpful admin staff and clear advising.', date: '2026-02-05' }
+    ]
+  },
+
+  { 
+    id: 20,
+    name: 'Department of Computer Science - Office',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7762, 39.2087],
+    desc: 'Computer Science department office and lab bookings.',
+    detailedDesc: 'Central office for CS administrative matters, lab reservations, and project supervision.',
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 6:00 PM',
+    population: 'high',
+    staff: [
+      { name: 'Dr. James O.', title: 'Department Chair', availability: 'available', phone: '+255 22 241 0110', email: 'james.o@udsm.ac.tz' },
+      { name: 'Ms. Linda R.', title: 'Lab Coordinator', availability: 'available', phone: '+255 22 241 0111', email: 'linda.r@udsm.ac.tz' }
+    ],
+    reviews: [
+      { id: 1, name: 'Student B', rating: 5, comment: 'Excellent lab support!', date: '2026-02-12' }
+    ]
+  },
+
+  { 
+    id: 21,
+    name: 'Department of Physics - Office',
+    type: 'Academic',
+    status: 'Occupied',
+    coords: [-6.7747, 39.2079],
+    desc: 'Physics department office and demonstration lab scheduling.',
+    detailedDesc: 'Administrative hub for Physics faculty including lab bookings, equipment loans, and exams coordination.',
+    wifi: true,
+    ac: false,
+    parking: false,
+    wheelchair: false,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'medium',
+    staff: [
+      { name: 'Prof. Daniel M.', title: 'Head of Physics', availability: 'available', phone: '+255 22 241 0120', email: 'daniel.m@udsm.ac.tz' }
+    ],
+    reviews: []
+  },
+
+  { 
+    id: 22,
+    name: 'Department of History - Office',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7752, 39.2069],
+    desc: 'History department administrative office and student services.',
+    detailedDesc: 'Provides course guidance, thesis submission support and event coordination for the History department.',
+    wifi: true,
+    ac: false,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Fri: 9:00 AM - 4:00 PM',
+    population: 'low',
+    staff: [
+      { name: 'Dr. Mercy N.', title: 'Department Secretary', availability: 'available', phone: '+255 22 241 0130', email: 'mercy.n@udsm.ac.tz' }
+    ],
+    reviews: []
+  },
+
+  { 
+    id: 23,
+    name: 'Department of Economics - Office',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7768, 39.2090],
+    desc: 'Economics department office for student affairs and internships.',
+    detailedDesc: 'Handles internship placements, course queries and department events for Economics students.',
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 5:00 PM',
+    population: 'medium',
+    staff: [
+      { name: 'Prof. Susan T.', title: 'Department Head', availability: 'busy', phone: '+255 22 241 0140', email: 'susan.t@udsm.ac.tz' },
+      { name: 'Mr. Alex G.', title: 'Student Coordinator', availability: 'available', phone: '+255 22 241 0141', email: 'alex.g@udsm.ac.tz' }
+    ],
+    reviews: []
+  },
+
+  { 
+    id: 24,
+    name: 'Department of Mechanical Engineering - Office',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7775, 39.2098],
+    desc: 'Mechanical Engineering admin office and workshop coordination.',
+    detailedDesc: 'Coordinates workshop sessions, equipment loans and industrial attachment programs for Mechanical Engineering students.',
+    wifi: true,
+    ac: false,
+    parking: true,
+    wheelchair: false,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'medium',
+    staff: [
+      { name: 'Dr. Robert K.', title: 'Head of Mechanical Eng.', availability: 'available', phone: '+255 22 241 0150', email: 'robert.k@udsm.ac.tz' }
+    ],
+    reviews: []
+  }
 ];
 
 // Helper function to get location by ID
