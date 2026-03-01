@@ -18,6 +18,7 @@ import {
   User
 } from 'lucide-react'
 import { useMap } from 'react-leaflet'
+import LocationDetailCard from './LocationDetailCard'
 
 // Custom icons for pathway - Start (green) and End (blue)
 const startIcon = new L.DivIcon({
@@ -278,18 +279,12 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
         )
       )}
 
-      {/* Large Popup Modal - Hidden during navigation */}
+      {/* Large Popup Modal - render unified LocationDetailCard and pass location object */}
       {largePopupLocation && !navigationDetails && (
-        <LargePopup 
-          location={largePopupLocation} 
-          onClose={closePopup}
-          onNavigate={() => handleNavigate(largePopupLocation)}
-          animate={animatePopup}
-          showAllReviews={showAllReviews}
-          setShowAllReviews={setShowAllReviews}
-          isMobile={isMobile}
+        <LocationDetailCard
+          location={largePopupLocation}
           theme={theme}
-          navigationAnimating={navigationAnimating}
+          onStartNavigation={() => handleNavigate(largePopupLocation)}
         />
       )}
 

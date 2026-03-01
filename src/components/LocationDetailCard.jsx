@@ -146,19 +146,23 @@ const UDSM_LOCATIONS = [
   }
 ]
 
-export default function LocationDetailCard({ locationId = 1, theme = 'light' }) {
+export default function LocationDetailCard({ locationId = 1, location: locationProp = null, theme = 'light', onStartNavigation = null }) {
   const [location, setLocation] = useState(null)
   const [animateIn, setAnimateIn] = useState(false)
 
   useEffect(() => {
-    // Set location from mock data
-    const selectedLocation = UDSM_LOCATIONS.find(loc => loc.id === locationId)
-    setLocation(selectedLocation || UDSM_LOCATIONS[0])
-    
+    // Prefer a passed `location` object prop when available, otherwise fall back to lookup by id
+    if (locationProp && typeof locationProp === 'object') {
+      setLocation(locationProp)
+    } else {
+      const selectedLocation = UDSM_LOCATIONS.find(loc => loc.id === locationId)
+      setLocation(selectedLocation || UDSM_LOCATIONS[0])
+    }
+
     // Trigger animation
     const timer = setTimeout(() => setAnimateIn(true), 50)
     return () => clearTimeout(timer)
-  }, [locationId])
+  }, [locationId, locationProp])
 
   if (!location) return null
 
@@ -352,11 +356,14 @@ export default function LocationDetailCard({ locationId = 1, theme = 'light' }) 
               <p className={`text-2xl font-bold ${baseTheme.text}`}>{location.duration} min</p>
             </div>
           </div>
-          <button className={`w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-200 ${
-            theme === 'dark'
-              ? 'bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg'
-              : 'bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg'
-          } hover:scale-105 active:scale-95`}>
+          <button
+            onClick={() => onStartNavigation && onStartNavigation()}
+            className={`w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-200 ${
+              theme === 'dark'
+                ? 'bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg'
+                : 'bg-blue-600 hover:bg-blue-700 text-white hover:shadow-lg'
+            } hover:scale-105 active:scale-95`}
+          >
             <Navigation size={18} />
             Start Navigation
           </button>
