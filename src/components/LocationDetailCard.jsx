@@ -166,6 +166,14 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
 
   if (!location) return null
 
+  // Ensure arrays exist to avoid runtime .map on undefined when different data shapes are passed
+  location.services = Array.isArray(location.services) ? location.services : []
+  location.staff = Array.isArray(location.staff) ? location.staff : []
+  location.events = Array.isArray(location.events) ? location.events : []
+  location.additionalInfo = Array.isArray(location.additionalInfo) ? location.additionalInfo : []
+  location.reviews = Array.isArray(location.reviews) ? location.reviews : []
+  location.workingHours = location.workingHours ?? location.openingHours ?? ''
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'Open': return { bg: 'bg-green-100', text: 'text-green-800', dot: 'bg-green-500' }
