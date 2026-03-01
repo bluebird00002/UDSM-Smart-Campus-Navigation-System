@@ -217,8 +217,8 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
             >
               {!navigationDetails && (
                 <Popup className="custom-popup" closeButton={false}>
-                  <div className="px-2 py-1 bg-white rounded-lg min-w-[120px]">
-                    <div className="font-semibold text-md text-gray-800">{loc.name}</div>
+                  <div className={`px-2 py-1 rounded-lg min-w-[120px] ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                    <div className={`font-semibold text-md ${theme === 'dark' ? 'text-gray-100' : 'text-gray-800'}`}>{loc.name}</div>
                     <div className={`text-sm mt-0.5 flex items-center gap-1 ${
                       loc.status === 'Open' ? 'text-green-600' : 
                       loc.status === 'Closed' ? 'text-red-600' : 
@@ -332,7 +332,7 @@ const features = [
     { key: 'wifi', label: 'WiFi', icon: Wifi, available: location.wifi },
     { key: 'ac', label: 'AC', icon: Wind, available: location.ac },
     { key: 'parking', label: 'Parking', icon: Car, available: location.parking },
-    { key: 'wheelchair', label: 'Wheelchair', icon: Accessible, available: location.wheelchair },
+    { key: 'wheelchair', label: 'Accessible', icon: Accessible, available: location.wheelchair },
     { key: 'food', label: 'Food', icon: Coffee, available: location.food },
     { key: 'charging', label: 'Charging', icon: Zap, available: location.charging },
   ]
@@ -591,7 +591,7 @@ function NavigationBottomSheet({ navigationDetails, onClose, theme = 'light' }) 
     { key: 'wifi', label: 'WiFi', icon: Wifi, available: navigationDetails.destination?.wifi },
     { key: 'ac', label: 'AC', icon: Wind, available: navigationDetails.destination?.ac },
     { key: 'parking', label: 'Parking', icon: Car, available: navigationDetails.destination?.parking },
-    { key: 'wheelchair', label: 'Wheelchair', icon: Accessible, available: navigationDetails.destination?.wheelchair },
+    { key: 'wheelchair', label: 'Accessible', icon: Accessible, available: navigationDetails.destination?.wheelchair },
     { key: 'food', label: 'Food', icon: Coffee, available: navigationDetails.destination?.food },
     { key: 'charging', label: 'Charging', icon: Zap, available: navigationDetails.destination?.charging },
   ]

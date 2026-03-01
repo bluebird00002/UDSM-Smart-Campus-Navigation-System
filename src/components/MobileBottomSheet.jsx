@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Building2, Trophy, Wifi, Fan, Zap, Accessibility } from 'lucide-react'
+import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Building2, Trophy, Wifi, Fan, Zap, Accessibility, Car } from 'lucide-react'
 
 export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSearch,recent = [],onSelectLocation,categories,filters,setFilters, locations = [], menuOpen=false, isLoading=false, theme='light', advancedFilters, setAdvancedFilters}){
   const [open,setOpen] = useState(false)
@@ -206,7 +206,7 @@ export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSea
                     {key:'ac', label:'AC', Icon: Fan},
                     {key:'charging', label:'Charging', Icon: Zap},
                     {key:'wheelchair', label:'Accessible', Icon: Accessibility},
-                    {key:'parking', label:'Parking', Icon: MapPin},
+                    {key:'parking', label:'Parking', Icon: Car},
                     {key:'food', label:'Food', Icon: Coffee}
                   ].map(f=>{
                     const active = Array.isArray(advancedFilters?.features) && advancedFilters.features.includes(f.key)

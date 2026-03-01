@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Search, Mic, Wifi, Accessibility, BookOpen, Info, HelpCircle, LogIn, Fan, Volume1, VolumeX, Zap, MapPin, Sun, Moon, Heart, Clock, Compass, Coffee } from 'lucide-react'
+import { Search, Mic, Wifi, Accessibility, BookOpen, Info, HelpCircle, LogIn, Fan, Volume1, VolumeX, Zap, MapPin, Sun, Moon, Heart, Clock, Compass, Coffee, Car } from 'lucide-react'
 
 export default function Sidebar({locations, searchQuery = '', suggestions = [], onSearch, filters, setFilters, advancedFilters, setAdvancedFilters, onSelect, isMobile, recentSearches = [], isLoading = false, disabled = false, theme, setTheme}){
 
@@ -134,7 +134,7 @@ export default function Sidebar({locations, searchQuery = '', suggestions = [], 
                   {key:'ac', label:'AC', Icon: Fan},
                   {key:'charging', label:'Charging', Icon: Zap},
                   {key:'wheelchair', label:'Accessible', Icon: Accessibility},
-                  {key:'parking', label:'Parking', Icon: MapPin},
+                  {key:'parking', label:'Parking', Icon: Car},
                   {key:'food', label:'Food', Icon: Coffee}
                 ].map(f=>{
                   const active = Array.isArray(advancedFilters?.features) && advancedFilters.features.includes(f.key)
