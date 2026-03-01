@@ -146,7 +146,7 @@ const UDSM_LOCATIONS = [
   }
 ]
 
-export default function LocationDetailCard({ locationId = 1, location: locationProp = null, theme = 'light', onStartNavigation = null }) {
+export default function LocationDetailCard({ locationId = 1, location: locationProp = null, theme = 'light', onStartNavigation = null, onClose = null }) {
   const [location, setLocation] = useState(null)
   const [animateIn, setAnimateIn] = useState(false)
 
@@ -216,14 +216,21 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
       }
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 py-8">
+    <div className="fixed inset-0 z-[10000] flex items-center justify-center pointer-events-auto">
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => onClose && onClose()} />
       <div
-        className={`w-full max-w-2xl rounded-2xl shadow-lg transition-all duration-700 transform ${
-          animateIn
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-8'
+        className={`relative w-full max-w-2xl rounded-2xl shadow-2xl transition-all duration-700 transform ${
+          animateIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         } ${baseTheme.card}`}
+        style={{ zIndex: 10001 }}
       >
+        {/* Close Button */}
+        <button
+          onClick={() => onClose && onClose()}
+          className={`absolute top-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700 text-gray-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-600'}`}
+        >
+          <XCircle className="w-4 h-4" />
+        </button>
         {/* HEADER SECTION */}
         <div className={`p-6 border-b ${baseTheme.divider}`}>
           <div className="flex items-start justify-between gap-4 mb-3">

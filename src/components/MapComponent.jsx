@@ -285,6 +285,7 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
           location={largePopupLocation}
           theme={theme}
           onStartNavigation={() => handleNavigate(largePopupLocation)}
+          onClose={closePopup}
         />
       )}
 
