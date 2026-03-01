@@ -187,12 +187,17 @@ export default function App(){
             <div className={`w-72 max-w-[80%] border-r shadow-lg transform transition-transform duration-300 ${theme === 'dark' ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'} ${mobileMenuOpen? 'translate-x-0 pointer-events-auto z-[99999]':'-translate-x-full pointer-events-none z-[99999]'}` }>
               <Sidebar
                 locations={mockLocations}
+                searchQuery={query}
+                suggestions={suggestions}
                 onSearch={(q)=>{ setQuery(q); setMobileMenuOpen(false)}}
                 filters={filters}
                 setFilters={setFilters}
                 advancedFilters={advancedFilters}
                 setAdvancedFilters={setAdvancedFilters}
                 onSelect={(l)=> { setSelected(l); setMobileMenuOpen(false)}}
+                recentSearches={recentSearches}
+                isLoading={isLoading}
+                disabled={isNavigating}
                 isMobile
                 theme={theme}
                 setTheme={setTheme}
