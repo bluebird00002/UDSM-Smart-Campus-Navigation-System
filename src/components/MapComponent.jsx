@@ -284,6 +284,7 @@ export default function MapComponent({ center = [-6.7751, 39.2086], locations = 
         <LocationDetailCard
           location={largePopupLocation}
           theme={theme}
+          isMobile={isMobile}
           onStartNavigation={() => handleNavigate(largePopupLocation)}
           onClose={closePopup}
         />
