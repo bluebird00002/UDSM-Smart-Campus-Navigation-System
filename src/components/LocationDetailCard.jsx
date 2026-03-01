@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { MapPin, Clock, Users, Briefcase, Calendar, Phone, Mail, User, CheckCircle, AlertCircle, XCircle, Navigation, Plus, Coffee, Wifi, Zap, Wind, Accessibility, BookOpen } from 'lucide-react'
+import { MapPin, Clock, Users, Briefcase, Calendar, Phone, Mail, User, CheckCircle, AlertCircle, XCircle, Navigation, Plus, Coffee, Wifi, Zap, Wind, Accessibility, BookOpen, Star } from 'lucide-react'
 
 // Minimal mock dataset for fallback (kept small here)
 const UDSM_LOCATIONS = [
-  { id: 1, locationName: 'Dean of Students Office', building: 'Main Administration Building', block: 'Block A', floor: 'Ground Floor', type: 'Office', status: 'Open', description: 'Handles student welfare and support.', services: ['Advising', 'Counseling'], staff: [{ name: 'Prof. A. Kapinga', title: 'Dean', availability: 'available', phone: '+255 22 241 0001', email: 'a.kapinga@udsm.ac.tz' }], events: [], distance: 250, duration: 4, workingHours: 'Mon–Fri: 8:00 AM – 5:00 PM', additionalInfo: ['Student support available'] }
+  { id: 1, locationName: 'Dean of Students Office', building: 'Main Administration Building', block: 'Block A', floor: 'Ground Floor', type: 'Office', status: 'Open', description: 'Handles student welfare and support.', services: ['Advising', 'Counseling'], staff: [{ name: 'Prof. A. Kapinga', title: 'Dean', availability: 'available', phone: '+255 22 241 0001', email: 'a.kapinga@udsm.ac.tz' }], events: [], distance: 250, duration: 4, workingHours: 'Mon–Fri: 8:00 AM – 5:00 PM', additionalInfo: ['Student support available'], features: ['WiFi','AC','Charging','Accessible'], reviews: [
+    { name: 'Aisha M.', date: '2026-02-25', rating: 5, text: 'Helpful staff and quick service. Comfortable waiting area.' },
+    { name: 'John K.', date: '2026-02-20', rating: 4, text: 'Got assistance with registration. A bit crowded.' },
+    { name: 'Moses L.', date: '2026-01-15', rating: 5, text: 'Very organized and friendly staff.' }
+  ] }
 ]
 
 export default function LocationDetailCard({ locationId = 1, location: locationProp = null, theme = 'light', onStartNavigation = null, onClose = null, isMobile = false }) {
@@ -49,6 +53,13 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
     additionalInfo,
     reviews
   }
+
+  const features = Array.isArray(location.features) ? location.features : (Array.isArray(location.featuresList) ? location.featuresList : [])
+
+  // UI helpers
+  const wrapperAlignment = isMobile ? 'items-center' : 'items-end md:items-center'
+  const cardWidthClass = isMobile ? 'max-w-md mx-4 rounded-2xl' : 'max-w-3xl rounded-2xl'
+  const cardMaxHeight = isMobile ? '80vh' : '90vh'
 
   // Friendly facility type mapping
   const facilityTypeLabel = (() => {
@@ -102,12 +113,15 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
     }
 
   return (
-    <div className="fixed inset-0 z-[10000] flex items-end md:items-center justify-center pointer-events-auto px-4">
+    <div className={`fixed inset-0 z-[10000] flex ${wrapperAlignment} justify-center pointer-events-auto px-4`}>
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => onClose && onClose()} />
-      <div className={`relative w-full ${isMobile ? 'max-w-full rounded-t-2xl' : 'max-w-3xl rounded-2xl'} shadow-2xl transition-all duration-500 transform ${animateIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} ${baseTheme.card}`} style={{ zIndex: 10001, maxHeight: '90vh', overflow: 'hidden' }}>
+      <div className={`relative w-full ${cardWidthClass} shadow-2xl transition-all duration-500 transform ${animateIn ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-6 scale-95'} ${baseTheme.card}`} style={{ zIndex: 10001, maxHeight: cardMaxHeight, overflow: 'hidden' }}>
         <button onClick={() => onClose && onClose()} className={`absolute top-3 right-3 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700 text-gray-300' : 'bg-white/80 hover:bg-gray-100 text-gray-700'}`}>
           <XCircle className="w-5 h-5" />
         </button>
+
+        {/* hide scrollbar styles */}
+        <style>{`.hide-scrollbar::-webkit-scrollbar{display:none} .hide-scrollbar{-ms-overflow-style:none; scrollbar-width:none;}`}</style>
 
         {/* Header */}
         <div className={`px-5 pt-6 pb-4 border-b ${baseTheme.divider}`}>
@@ -131,7 +145,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
         </div>
 
         {/* Content - scrollable */}
-        <div className="overflow-y-auto px-5 py-4" style={{ maxHeight: 'calc(90vh - 96px)' }}>
+        <div className="overflow-y-auto px-5 py-4 hide-scrollbar" style={{ maxHeight: `calc(${cardMaxHeight} - 96px)`, WebkitOverflowScrolling: 'touch' }}>
 
           {/* Description */}
           <section className="mb-4">
@@ -217,8 +231,8 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
             </button>
           </section>
 
-          {/* Working Hours & Additional Info */}
-          <section className="mb-6">
+          {/* Working Hours & Features */}
+          <section className="mb-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Clock className={`w-4 h-4 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
@@ -227,17 +241,60 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
             </div>
             <div className={`p-3 rounded-lg ${baseTheme.section} mb-3`}><div className={`${baseTheme.text} text-sm`}>{loc.workingHours || 'Not specified'}</div></div>
 
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <BookOpen className={`w-4 h-4 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
-                <h4 className={`text-sm font-semibold ${baseTheme.text}`}>Additional Info</h4>
+            <div className="mb-3">
+              <div className="flex items-center gap-2 mb-2">
+                <BookOpen className={`w-5 h-5 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
+                <h4 className={`text-sm font-semibold ${baseTheme.text}`}>Features</h4>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {(features.length ? features : ['No features listed']).map((f, i) => {
+                  const key = (f || '').toString().toLowerCase()
+                  let Icon = Plus
+                  if (key.includes('wifi')) Icon = Wifi
+                  else if (key.includes('ac') || key.includes('air')) Icon = Wind
+                  else if (key.includes('charge') || key.includes('power') || key.includes('outlet')) Icon = Zap
+                  else if (key.includes('access') || key.includes('accessible')) Icon = Accessibility
+                  else if (key.includes('coffee') || key.includes('cafe')) Icon = Coffee
+                  return (
+                    <span key={i} className={`px-3 py-1.5 rounded-full text-sm flex items-center gap-2 ${theme === 'dark' ? 'bg-gray-800 text-gray-100' : 'bg-gray-50 text-gray-800'}`}>
+                      <Icon className="w-4 h-4" /> {f}
+                    </span>
+                  )
+                })}
               </div>
             </div>
-            {(loc.additionalInfo && loc.additionalInfo.length) ? loc.additionalInfo.map((a,i)=>(
-              <div key={i} className={`p-3 rounded-lg ${baseTheme.section} mb-2`}><div className={`${baseTheme.text} text-sm`}>{a}</div></div>
-            )) : (
-              <div className={`p-3 rounded-lg ${baseTheme.section}`}><div className={`${baseTheme.text} text-sm`}>No additional information.</div></div>
-            )}
+
+            {/* Reviews (replaces Additional Info) */}
+            <div className="mb-2">
+              <div className="flex items-center gap-2 mb-2">
+                <Star className={`w-5 h-5 ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-500'}`} />
+                <h4 className={`text-sm font-semibold ${baseTheme.text}`}>Reviews</h4>
+              </div>
+              <div className="space-y-3">
+                {reviews && reviews.length ? (
+                  reviews.slice().sort((a,b)=> new Date(b.date) - new Date(a.date)).map((r, idx) => {
+                    const dt = r.date ? new Date(r.date) : new Date()
+                    const dateLabel = dt.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+                    return (
+                      <div key={idx} className={`p-3 rounded-lg ${baseTheme.section}`}>
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">{(r.name||'U').charAt(0)}</div>
+                          <div className="min-w-0">
+                            <div className="flex items-center justify-between gap-3">
+                              <div className={`font-semibold ${baseTheme.text}`}>{r.name || 'Student'}</div>
+                              <div className={`text-xs ${baseTheme.subtext}`}>{dateLabel}</div>
+                            </div>
+                            <div className={`text-sm ${baseTheme.subtext} mt-1`}>{r.text}</div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })
+                ) : (
+                  <div className={`p-3 rounded-lg ${baseTheme.section}`}><div className={`${baseTheme.text} text-sm`}>No reviews yet.</div></div>
+                )}
+              </div>
+            </div>
           </section>
         </div>
       </div>
