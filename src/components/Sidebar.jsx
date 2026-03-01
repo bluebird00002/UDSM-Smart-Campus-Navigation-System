@@ -128,7 +128,7 @@ export default function Sidebar({locations, searchQuery = '', suggestions = [], 
 
             <div className="mt-4">
               <div className="text-sm font-medium mb-2">Preferences</div>
-              <div className="flex flex-wrap gap-2 max-h-[96px] overflow-auto">
+              <div className="flex flex-wrap gap-2 max-h-[96px] overflow-auto hide-scrollbar">
                 {[
                   {key:'wifi', label:'WiFi', Icon: Wifi},
                   {key:'ac', label:'AC', Icon: Fan},

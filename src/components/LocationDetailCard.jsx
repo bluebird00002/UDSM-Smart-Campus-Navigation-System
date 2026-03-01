@@ -173,7 +173,8 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
                   else if (key.includes('ac') || key.includes('air')) Icon = Wind
                   else if (key.includes('charge') || key.includes('power') || key.includes('outlet')) Icon = Zap
                   else if (key.includes('access') || key.includes('accessible')) Icon = Accessibility
-                  else if (key.includes('parking')) Icon = Briefcase
+                  else if (key.includes('parking')) Icon = MapPin
+                  else if (key.includes('food')) Icon = Coffee
                   return (
                     <span key={i} className={`px-3 py-1.5 rounded-full text-sm flex items-center gap-2 ${theme === 'dark' ? 'bg-gray-800 text-gray-100' : 'bg-gray-50 text-gray-800'}`}>
                       <Icon className="w-4 h-4" /> {f}

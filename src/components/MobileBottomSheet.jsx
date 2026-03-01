@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Gavel, Trophy, Wifi, Fan, Zap, Users, Heart } from 'lucide-react'
+import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Building2, Trophy, Wifi, Fan, Zap, Users, Heart, ShoppingCart } from 'lucide-react'
 
 export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSearch,recent = [],onSelectLocation,categories,filters,setFilters, locations = [], menuOpen=false, isLoading=false, theme='light', advancedFilters, setAdvancedFilters}){
   const [open,setOpen] = useState(false)
@@ -119,9 +119,9 @@ export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSea
             <div className="grid grid-cols-2 gap-4 mb-6">
               {[
                 {key:'food', title:'Food', Icon: Coffee, items: ['Cafe 2, CoICT Cafeteria']},
-                {key:'daruso', title:'Daruso', Icon: Gavel, items: ['Daruso Offices']},
+                {key:'admin', title:'Admin', Icon: Building2, items: ['Registry','Bursar','Student Affairs']},
                 {key:'sports', title:'Sports', Icon: Trophy, items: ['Football pitch','Netball','Basketball']},
-                {key:'stationery', title:'Stationery', Icon: BookOpen, items: ['Bindings','Printing','Accessories']}
+                {key:'stationery', title:'Stationery', Icon: ShoppingCart, items: ['Bindings','Printing','Accessories']}
               ].map(s=> (
                 <button key={s.key} onClick={()=>{ /* optional: set filter or quick-search */ }} className={`text-left p-3 border rounded-lg hover:shadow-md transition duration-150 flex flex-col gap-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-750' : 'bg-white border-gray-200'}`}>
                   <div className="flex items-center gap-3">

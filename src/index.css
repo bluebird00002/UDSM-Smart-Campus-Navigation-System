@@ -63,3 +63,12 @@ body{
   scrollbar-color: rgba(0,0,0,0.3) #f1f1f1;
 }
 
+/* Default: hide scrollbars on all overflow elements globally */
+div[class*="overflow"] {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+div[class*="overflow"]::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
