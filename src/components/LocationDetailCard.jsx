@@ -50,6 +50,19 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
     reviews
   }
 
+  // Friendly facility type mapping
+  const facilityTypeLabel = (() => {
+    const t = (loc.type || '').toLowerCase()
+    if (!t) return ''
+    if (t.includes('service')) return 'Service'
+    if (t.includes('admin') || t.includes('administration')) return 'Administration'
+    if (t.includes('acad') || t.includes('faculty') || t.includes('department') || t.includes('lecture')) return 'Academic'
+    return loc.type
+  })()
+
+  // Only show building/block/floor parts that exist, joined by a single dot
+  const locationParts = [loc.building, loc.block, loc.floor].filter(Boolean).join(' • ')
+
   const getStatusColor = (status) => {
     switch ((status || '').toLowerCase()) {
       case 'open': return { bg: 'bg-green-100', text: 'text-green-800', dot: 'bg-green-500' }
@@ -98,13 +111,17 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
 
         {/* Header */}
         <div className={`px-5 pt-6 pb-4 border-b ${baseTheme.divider}`}>
-          <div className="flex items-start gap-4">
+          <div className="flex items-center gap-4">
             <div className="flex-1 min-w-0">
               <h1 className={`text-2xl md:text-3xl font-extrabold ${baseTheme.text} truncate`}>{loc.locationName}</h1>
-              <div className={`text-sm md:text-base ${baseTheme.subtext} mt-1 truncate`}>{loc.building || '—'} • {loc.block || '—'} • {loc.floor || '—'}</div>
+              {facilityTypeLabel ? (
+                <div className={`text-sm md:text-base ${baseTheme.subtext} mt-1`}>{facilityTypeLabel}</div>
+              ) : null}
+              {locationParts ? (
+                <div className={`text-sm md:text-base ${baseTheme.subtext} mt-1 truncate`}>{locationParts}</div>
+              ) : null}
             </div>
-            <div className="flex flex-col items-end gap-2">
-              <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${theme === 'dark' ? 'bg-black/30 text-white' : 'bg-white/80 text-gray-800'} border ${baseTheme.divider}`}>{loc.type}</span>
+            <div className="flex items-center">
               <div className={`px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 ${statusColor.bg} ${statusColor.text}`}>
                 <span className={`w-2 h-2 rounded-full ${statusColor.dot}`}></span>
                 {loc.status || 'Unknown'}
