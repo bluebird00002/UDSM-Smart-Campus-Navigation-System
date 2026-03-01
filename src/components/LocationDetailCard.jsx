@@ -174,6 +174,27 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
   location.reviews = Array.isArray(location.reviews) ? location.reviews : []
   location.workingHours = location.workingHours ?? location.openingHours ?? ''
 
+  // Normalize fields so the component can accept either `name`/`desc` shape (from mockData)
+  // or the `locationName`/`description` shape (UDSM_LOCATIONS)
+  const loc = {
+    id: location.id,
+    locationName: location.locationName ?? location.name ?? 'Unknown Location',
+    building: location.building ?? location.buildingName ?? '',
+    block: location.block ?? location.blockNumber ?? '',
+    floor: location.floor ?? location.floorNumber ?? '',
+    type: location.type ?? '',
+    status: location.status ?? '',
+    description: location.description ?? location.detailedDesc ?? location.desc ?? '',
+    services: location.services,
+    staff: location.staff,
+    events: location.events,
+    distance: location.distance ?? null,
+    duration: location.duration ?? null,
+    workingHours: location.workingHours,
+    additionalInfo: location.additionalInfo,
+    reviews: location.reviews
+  }
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'Open': return { bg: 'bg-green-100', text: 'text-green-800', dot: 'bg-green-500' }
@@ -196,7 +217,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
     }
   }
 
-  const statusColor = getStatusColor(location.status)
+  const statusColor = getStatusColor(loc.status)
   const baseTheme = theme === 'dark'
     ? {
         card: 'bg-gray-900 border border-gray-800',
@@ -236,20 +257,20 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
           <div className="flex items-start justify-between gap-4 mb-3">
             <div className="flex-1">
               <h1 className={`text-3xl font-bold ${baseTheme.text} mb-1`}>
-                {location.locationName}
+                {loc.locationName}
               </h1>
               <p className={`text-sm ${baseTheme.subtext}`}>
-                {location.building} • {location.block} • {location.floor}
+                {loc.building} • {loc.block} • {loc.floor}
               </p>
             </div>
             <div className={`px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-1.5 ${statusColor.bg} ${statusColor.text}`}>
               <span className={`w-2 h-2 rounded-full ${statusColor.dot}`}></span>
-              {location.status}
+              {loc.status}
             </div>
           </div>
           <div className="inline-block">
             <span className={`text-xs font-semibold px-3 py-1.5 rounded-full ${theme === 'dark' ? 'bg-blue-900/30 text-blue-300' : 'bg-blue-50 text-blue-700'}`}>
-              {location.type}
+              {loc.type}
             </span>
           </div>
         </div>
@@ -257,7 +278,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
         {/* DESCRIPTION SECTION */}
         <div className="p-6 border-b border-gray-100">
           <p className={`${baseTheme.text} leading-relaxed`}>
-            {location.description}
+            {loc.description}
           </p>
         </div>
 
@@ -268,7 +289,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
             <h2 className={`text-lg font-semibold ${baseTheme.text}`}>Services Offered</h2>
           </div>
           <div className="flex flex-wrap gap-2">
-            {location.services.map((service, idx) => (
+            {loc.services.map((service, idx) => (
               <div
                 key={idx}
                 className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
@@ -289,18 +310,18 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
             <Clock className={`w-5 h-5 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
             <h2 className={`text-lg font-semibold ${baseTheme.text}`}>Working Hours</h2>
           </div>
-          <p className={`${baseTheme.subtext} text-sm`}>{location.workingHours}</p>
+          <p className={`${baseTheme.subtext} text-sm`}>{loc.workingHours}</p>
         </div>
 
         {/* STAFF SECTION */}
-        {location.staff && location.staff.length > 0 && (
+        {loc.staff && loc.staff.length > 0 && (
           <div className={`p-6 border-b ${baseTheme.divider}`}>
             <div className="flex items-center gap-2 mb-4">
               <Users className={`w-5 h-5 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
               <h2 className={`text-lg font-semibold ${baseTheme.text}`}>Staff Information</h2>
             </div>
             <div className="space-y-3">
-              {location.staff.map((member, idx) => {
+              {loc.staff.map((member, idx) => {
                 const availabilityBadge = getAvailabilityBadge(member.availability)
                 const AvailabilityIcon = availabilityBadge.icon
                 return (
@@ -340,14 +361,14 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
         )}
 
         {/* EVENTS SECTION */}
-        {location.events && location.events.length > 0 && (
+        {loc.events && loc.events.length > 0 && (
           <div className={`p-6 border-b ${baseTheme.divider}`}>
             <div className="flex items-center gap-2 mb-4">
               <Calendar className={`w-5 h-5 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`} />
               <h2 className={`text-lg font-semibold ${baseTheme.text}`}>Events & Schedule</h2>
             </div>
             <div className="space-y-2">
-              {location.events.map((event, idx) => (
+              {loc.events.map((event, idx) => (
                 <div key={idx} className={`p-3 rounded-lg ${baseTheme.section}`}>
                   <p className={`font-semibold text-sm ${baseTheme.text}`}>{event.title}</p>
                   <p className={`text-xs ${baseTheme.subtext}`}>
@@ -364,11 +385,11 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className={`p-3 rounded-lg ${baseTheme.section}`}>
               <p className={`text-xs ${baseTheme.subtext} mb-1`}>Distance</p>
-              <p className={`text-2xl font-bold ${baseTheme.text}`}>{location.distance}m</p>
+              <p className={`text-2xl font-bold ${baseTheme.text}`}>{loc.distance ? `${loc.distance}m` : '—'}</p>
             </div>
             <div className={`p-3 rounded-lg ${baseTheme.section}`}>
               <p className={`text-xs ${baseTheme.subtext} mb-1`}>Walking Time</p>
-              <p className={`text-2xl font-bold ${baseTheme.text}`}>{location.duration} min</p>
+              <p className={`text-2xl font-bold ${baseTheme.text}`}>{loc.duration ? `${loc.duration} min` : '—'}</p>
             </div>
           </div>
           <button
@@ -385,7 +406,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
         </div>
 
         {/* ADDITIONAL INFORMATION SECTION */}
-        {location.additionalInfo && location.additionalInfo.length > 0 && (
+        {loc.additionalInfo && loc.additionalInfo.length > 0 && (
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className={`text-lg font-semibold ${baseTheme.text}`}>Additional Information</h2>
@@ -394,7 +415,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
               </button>
             </div>
             <div className="space-y-2">
-              {location.additionalInfo.map((info, idx) => (
+              {loc.additionalInfo.map((info, idx) => (
                 <div key={idx} className={`p-3 rounded-lg text-sm ${baseTheme.section}`}>
                   <p className={baseTheme.text}>• {info}</p>
                 </div>
