@@ -122,14 +122,14 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
       <div className={`relative w-full ${isMobile ? 'max-w-md rounded-2xl' : 'max-w-3xl rounded-2xl'} shadow-2xl transition-all duration-500 transform ${animateIn ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-6 scale-95'} ${baseTheme.card}`} style={{ zIndex: 10001, maxHeight: isMobile ? '80vh' : '90vh', overflow: 'hidden' }}>
         
         {/* Close button with proper spacing */}
-        <button onClick={() => onClose && onClose()} className={`absolute top-4 right-4 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700 text-gray-300' : 'bg-white/80 hover:bg-gray-100 text-gray-700'}`}>
+        <button onClick={() => onClose && onClose()} className={`absolute top-5 right-5 z-20 w-9 h-9 rounded-full flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-gray-800 hover:bg-gray-700 text-gray-300' : 'bg-white/80 hover:bg-gray-100 text-gray-700'}`}>
           <XCircle className="w-5 h-5" />
         </button>
 
         {/* Header */}
-        <div className={`px-5 pt-6 pb-4 border-b ${baseTheme.divider}`}>
-          <div className="flex items-start gap-3">
-            <div className="flex-1 min-w-0 pr-2">
+        <div className={`px-5 pt-6 pb-4 border-b ${baseTheme.divider} pr-12`}>
+          <div className="flex items-start gap-4 justify-between">
+            <div className="flex-1 min-w-0">
               <h1 className={`text-2xl md:text-3xl font-extrabold ${baseTheme.text} truncate`}>{loc.locationName}</h1>
               {facilityTypeLabel ? (
                 <div className={`text-sm md:text-base ${baseTheme.subtext} mt-1`}>{facilityTypeLabel}</div>
@@ -138,7 +138,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
                 <div className={`text-sm md:text-base ${baseTheme.subtext} mt-1 truncate`}>{locationParts}</div>
               ) : null}
             </div>
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 ml-2">
               <div className={`px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-2 ${statusColor.bg} ${statusColor.text} whitespace-nowrap`}>
                 <span className={`w-2 h-2 rounded-full ${statusColor.dot}`}></span>
                 {loc.status || 'Unknown'}

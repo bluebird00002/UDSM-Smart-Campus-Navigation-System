@@ -1,568 +1,187 @@
 const mockLocations = [
-  { 
-    id: 1, 
-    name: 'NHIF Office', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.775, 39.209], 
-    desc: 'Student health insurance office.',
-    detailedDesc: 'The National Health Insurance Fund (NHIF) office at UDSM provides comprehensive health insurance services for all registered students. Services include registration, claims processing, and health card renewals.',
-    distance: 320,
-    duration: 5,
-    wifi: false, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: false,
-    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
-    population: 'low',
-    reviews: [
-      { id: 1, name: 'John Michael', avatar: 'https://i.pravatar.cc/150?img=1', rating: 4, comment: 'Quick service when there are few people. Staff are helpful.', date: '2026-01-15' },
-      { id: 2, name: 'Sarah Ahmed', avatar: 'https://i.pravatar.cc/150?img=5', rating: 3, comment: 'Long queues during peak hours. Need more counters.', date: '2026-01-10' },
-      { id: 3, name: 'David Kimani', avatar: 'https://i.pravatar.cc/150?img=3', rating: 5, comment: 'Excellent service for student health concerns.', date: '2026-01-05' },
-      { id: 4, name: 'Maria Charles', avatar: 'https://i.pravatar.cc/150?img=9', rating: 4, comment: 'Very convenient for on-campus students.', date: '2026-12-20' },
-      { id: 5, name: 'Robert Paul', avatar: 'https://i.pravatar.cc/150?img=8', rating: 2, comment: 'Slow service. Better to come early.', date: '2026-12-15' }
-    ]
-  },
-  { 
-    id: 2, 
-    name: 'Registry', 
-    type: 'Admin', 
-    status: 'Open', 
-    coords: [-6.776, 39.208], 
-    desc: 'Administration and records.',
-    detailedDesc: 'The University Registry handles all academic records, transcripts, certificates, and student enrollment verification. It is the central administrative hub for all student documentation needs.',
+  // ===== SERVICE & STUDENT SUPPORT =====
+  {
+    id: 1,
+    name: 'University Health Centre',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7751, 39.2095],
+    desc: 'Medical consultations, treatment, and student health support.',
+    detailedDesc: 'The University Health Centre provides comprehensive medical services including general consultations, first aid treatment, health emergency support, and NHIF registration assistance for all registered students and staff.',
     distance: 280,
     duration: 4,
-    wifi: true, 
-    ac: true, 
-    parking: true,
-    wheelchair: true,
-    food: false,
-    charging: true,
-    openingHours: 'Mon-Fri: 7:30 AM - 4:00 PM',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Emily Jackson', avatar: 'https://i.pravatar.cc/150?img=16', rating: 5, comment: 'Got my transcript within 2 days. Very efficient!', date: '2026-01-18' },
-      { id: 2, name: 'Michael Chen', avatar: 'https://i.pravatar.cc/150?img=12', rating: 4, comment: 'Staff are professional and helpful.', date: '2026-01-12' },
-      { id: 3, name: 'Anna Mwamba', avatar: 'https://i.pravatar.cc/150?img=20', rating: 4, comment: 'Good air conditioning makes waiting comfortable.', date: '2026-01-08' },
-      { id: 4, name: 'James Wilson', avatar: 'https://i.pravatar.cc/150?img=11', rating: 3, comment: 'Can be crowded during exam periods.', date: '2026-01-02' },
-      { id: 5, name: 'Grace Mushi', avatar: 'https://i.pravatar.cc/150?img=23', rating: 5, comment: 'Excellent customer service!', date: '2026-12-28' }
-    ]
-  },
-  { 
-    id: 3, 
-    name: 'Lecture Hall 3', 
-    type: 'Academic', 
-    status: 'Occupied', 
-    coords: [-6.774, 39.207], 
-    desc: 'Main lecture theatre 3.',
-    detailedDesc: 'Lecture Hall 3 is one of the largest lecture theatres on campus, seating over 300 students. Equipped with modern audio-visual equipment, air conditioning, and accessible seating.',
-    distance: 180,
-    duration: 3,
-    wifi: true, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: true,
-    openingHours: 'Mon-Sat: 7:00 AM - 9:00 PM',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Peter Ngowi', avatar: 'https://i.pravatar.cc/150?img=13', rating: 4, comment: 'Great acoustics and projector quality.', date: '2026-01-20' },
-      { id: 2, name: 'Lisa Mrema', avatar: 'https://i.pravatar.cc/150?img=24', rating: 3, comment: 'Gets hot without AC during afternoon classes.', date: '2026-01-15' },
-      { id: 3, name: 'Tom Harris', avatar: 'https://i.pravatar.cc/150?img=15', rating: 5, comment: 'Best lecture hall on campus!', date: '2026-01-10' },
-      { id: 4, name: 'Joyce Sebastian', avatar: 'https://i.pravatar.cc/150?img=25', rating: 4, comment: 'Comfortable seating arrangements.', date: '2026-01-05' }
-    ]
-  },
-  { 
-    id: 4, 
-    name: 'Old Library', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.773, 39.206], 
-    desc: 'Central library with study spaces.',
-    detailedDesc: 'The historic Old Library offers extensive book collections, study rooms, computer stations, and a quiet learning environment. Open to all registered students and staff.',
-    distance: 420,
-    duration: 6,
-    wifi: true, 
-    ac: true, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: true,
-    openingHours: 'Mon-Sun: 8:00 AM - 10:00 PM',
-    population: 'medium',
-    reviews: [
-      { id: 1, name: 'Catherine Rite', avatar: 'https://i.pravatar.cc/150?img=26', rating: 5, comment: 'Perfect quiet environment for studying.', date: '2026-01-22' },
-      { id: 2, name: 'Andrew Masudi', avatar: 'https://i.pravatar.cc/150?img=17', rating: 5, comment: 'Extensive book collection. Love the study rooms!', date: '2026-01-18' },
-      { id: 3, name: 'Rachel Gomes', avatar: 'https://i.pravatar.cc/150?img=27', rating: 4, comment: 'Great AC and WiFi. Can get crowded during exams.', date: '2026-01-14' },
-      { id: 4, name: 'Samuel Juma', avatar: 'https://i.pravatar.cc/150?img=14', rating: 4, comment: 'Good lighting for late-night studies.', date: '2026-01-08' },
-      { id: 5, name: 'Deborah Swai', avatar: 'https://i.pravatar.cc/150?img=28', rating: 5, comment: 'My favorite spot on campus!', date: '2026-01-03' }
-    ]
-  },
-  { 
-    id: 5, 
-    name: 'Faculty of Engineering', 
-    type: 'Academic', 
-    status: 'Open', 
-    coords: [-6.777, 39.2095], 
-    desc: 'Engineering faculty building.',
-    detailedDesc: 'The Faculty of Engineering houses multiple engineering departments including Civil, Electrical, Mechanical, and Computer Engineering. Features specialized labs and workshops.',
-    distance: 550,
-    duration: 8,
-    wifi: false, 
-    ac: true, 
-    parking: true,
-    wheelchair: true,
-    food: true,
-    charging: true,
-    openingHours: 'Mon-Fri: 7:00 AM - 6:00 PM',
-    population: 'medium',
-    reviews: [
-      { id: 1, name: 'Kevin Mwakibete', avatar: 'https://i.pravatar.cc/150?img=18', rating: 5, comment: 'State-of-the-art labs and equipment!', date: '2026-01-21' },
-      { id: 2, name: 'Nancy Lyimo', avatar: 'https://i.pravatar.cc/150?img=29', rating: 4, comment: 'Good study environment in the building.', date: '2026-01-16' },
-      { id: 3, name: 'Brian Mushi', avatar: 'https://i.pravatar.cc/150?img=19', rating: 4, comment: 'Spacious building with good ventilation.', date: '2026-01-11' },
-      { id: 4, name: 'Patricia Sanga', avatar: 'https://i.pravatar.cc/150?img=30', rating: 3, comment: 'No WiFi is a major drawback.', date: '2026-01-06' }
-    ]
-  },
-  { 
-    id: 6, 
-    name: 'Bursar Office', 
-    type: 'Admin', 
-    status: 'Open', 
-    coords: [-6.7755, 39.210], 
-    desc: 'Fees and payments.',
-    detailedDesc: 'The Bursar Office handles all tuition fees, accommodation payments, and financial inquiries. Students can pay fees via cash, bank transfer, or mobile money.',
-    distance: 290,
-    duration: 4,
-    wifi: false, 
-    ac: false, 
-    parking: true,
-    wheelchair: false,
-    food: false,
-    charging: false,
-    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
-    population: 'low',
-    reviews: [
-      { id: 1, name: 'Martin Lupembe', avatar: 'https://i.pravatar.cc/150?img=21', rating: 3, comment: 'Long waiting times but staff are helpful.', date: '2026-01-19' },
-      { id: 2, name: 'Angel John', avatar: 'https://i.pravatar.cc/150?img=31', rating: 3, comment: 'Can be chaotic during fee payment deadlines.', date: '2026-01-13' },
-      { id: 3, name: 'Francis Mtei', avatar: 'https://i.pravatar.cc/150?img=22', rating: 4, comment: 'Payment process is straightforward.', date: '2026-01-07' }
-    ]
-  },
-  { 
-    id: 7, 
-    name: 'Cafeteria A', 
-    type: 'Service', 
-    status: 'Temporarily Closed', 
-    coords: [-6.7745, 39.2085], 
-    desc: 'Student dining hall.',
-    detailedDesc: 'Cafeteria A offers affordable meals for students with a variety of local and international dishes. Currently undergoing renovation for improved facilities.',
-    distance: 210,
-    duration: 3,
-    wifi: false, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: true,
-    charging: false,
-    openingHours: 'Mon-Sun: 6:00 AM - 9:00 PM (Currently Closed)',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Diana Mhina', avatar: 'https://i.pravatar.cc/150?img=32', rating: 2, comment: 'Food quality has declined recently.', date: '2026-01-17' },
-      { id: 2, name: 'Joseph Mushi', avatar: 'https://i.pravatar.cc/150?img=23', rating: 3, comment: 'Good variety of local dishes.', date: '2026-01-09' },
-      { id: 3, name: 'Gladness Mbise', avatar: 'https://i.pravatar.cc/150?img=33', rating: 4, comment: 'Best place for cheap eats on campus!', date: '2026-01-01' }
-    ]
-  },
-  { 
-    id: 8, 
-    name: 'Computer Lab', 
-    type: 'Academic', 
-    status: 'Occupied', 
-    coords: [-6.7735, 39.2075], 
-    desc: 'Open lab for students.',
-    detailedDesc: 'The Computer Lab provides 50+ workstations with high-speed internet access. Available software includes Microsoft Office, programming IDEs, and design tools.',
-    distance: 360,
-    duration: 5,
-    wifi: true, 
-    ac: true, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: true,
-    openingHours: 'Mon-Sat: 8:00 AM - 8:00 PM',
-    population: 'medium',
-    reviews: [
-      { id: 1, name: 'Steven Kyaruzi', avatar: 'https://i.pravatar.cc/150?img=24', rating: 5, comment: 'Fast computers and reliable WiFi!', date: '2026-01-23' },
-      { id: 2, name: 'Irene Nyerere', avatar: 'https://i.pravatar.cc/150?img=34', rating: 4, comment: 'Great for programming assignments.', date: '2026-01-17' },
-      { id: 3, name: 'Daniel Mdegella', avatar: 'https://i.pravatar.cc/150?img=25', rating: 4, comment: 'Good air conditioning.', date: '2026-01-11' },
-      { id: 4, name: 'Happiness Gasper', avatar: 'https://i.pravatar.cc/150?img=35', rating: 3, comment: 'Can get crowded during assignment deadlines.', date: '2026-01-05' }
-    ]
-  },
-  { 
-    id: 9, 
-    name: 'Student Affairs', 
-    type: 'Admin', 
-    status: 'Open', 
-    coords: [-6.7765, 39.2065], 
-    desc: 'Support services for students.',
-    detailedDesc: 'The Department of Student Affairs provides counseling services, career guidance, student clubs support, and general student welfare programs.',
-    distance: 380,
-    duration: 5,
-    wifi: true, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: false,
-    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
-    population: 'low',
-    reviews: [
-      { id: 1, name: 'Fatuma Hamad', avatar: 'https://i.pravatar.cc/150?img=36', rating: 5, comment: 'Very supportive counselors!', date: '2026-01-22' },
-      { id: 2, name: 'Hamis Juma', avatar: 'https://i.pravatar.cc/150?img=26', rating: 4, comment: 'Helpful with student club registrations.', date: '2026-01-16' },
-      { id: 3, name: 'Zainab Mbwana', avatar: 'https://i.pravatar.cc/150?img=37', rating: 5, comment: 'Great career guidance services.', date: '2026-01-10' }
-    ]
-  },
-  { 
-    id: 10, 
-    name: 'Health Center', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.7758, 39.2058], 
-    desc: 'On-campus clinic.',
-    detailedDesc: 'The University Health Center provides medical services including first aid, consultations, basic treatments, and referrals to larger hospitals. Open to all students and staff.',
-    distance: 340,
-    duration: 5,
-    wifi: false, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: false,
-    openingHours: '24/7 (Emergency), Mon-Fri: 8:00 AM - 6:00 PM (General)',
-    population: 'low',
-    reviews: [
-      { id: 1, name: 'Dr. Amina Yusufu', avatar: 'https://i.pravatar.cc/150?img=38', rating: 5, comment: 'Quick medical attention when needed!', date: '2026-01-24' },
-      { id: 2, name: 'Yusuph Mwakidudu', avatar: 'https://i.pravatar.cc/150?img=27', rating: 4, comment: 'Good for minor health issues.', date: '2026-01-18' },
-      { id: 3, name: 'Rehema Sadiki', avatar: 'https://i.pravatar.cc/150?img=39', rating: 4, comment: 'Friendly medical staff.', date: '2026-01-12' },
-      { id: 4, name: 'Azizi Kondo', avatar: 'https://i.pravatar.cc/150?img=28', rating: 3, comment: 'Limited facilities but helpful.', date: '2026-01-06' }
-    ]
-  },
-  { 
-    id: 11, 
-    name: 'Yombo 2', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.7753, 39.2092], 
-    desc: 'Yombo 2 student residence.',
-    detailedDesc: 'Yombo 2 is a modern student hostel offering comfortable accommodation with study rooms, common areas, and laundry facilities.',
-    distance: 410,
-    duration: 6,
-    wifi: true, 
-    ac: false, 
-    parking: false,
-    wheelchair: false,
-    food: false,
-    charging: true,
-    openingHours: '24/7 (Residence)',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Victor Lawrence', avatar: 'https://i.pravatar.cc/150?img=29', rating: 4, comment: 'Good WiFi and study environment.', date: '2026-01-21' },
-      { id: 2, name: 'Jackline Mushi', avatar: 'https://i.pravatar.cc/150?img=40', rating: 4, comment: 'Clean and well-maintained rooms.', date: '2026-01-15' },
-      { id: 3, name: 'Oscar Mwakibete', avatar: 'https://i.pravatar.cc/150?img=30', rating: 3, comment: 'Can be noisy during weekends.', date: '2026-01-09' },
-      { id: 4, name: 'Shukuru Mtei', avatar: 'https://i.pravatar.cc/150?img=41', rating: 5, comment: 'Great location near campus facilities!', date: '2026-01-03' }
-    ]
-  },
-  { 
-    id: 12, 
-    name: 'Helsb Office', 
-    type: 'Admin', 
-    status: 'Open', 
-    coords: [-6.7748, 39.2090], 
-    desc: 'HELSB administrative office.',
-    detailedDesc: 'The Higher Education Loans Board (HELSB) office assists students with loan applications, disbursements, and repayment guidance.',
-    distance: 300,
-    duration: 4,
-    wifi: true, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: false,
-    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
-    population: 'low',
-    reviews: [
-      { id: 1, name: 'Ruth Mbwana', avatar: 'https://i.pravatar.cc/150?img=42', rating: 4, comment: 'Helped me with my student loan smoothly.', date: '2026-01-20' },
-      { id: 2, name: 'Samson Mliga', avatar: 'https://i.pravatar.cc/150?img=31', rating: 3, comment: 'Slow processing but staff are patient.', date: '2026-01-14' },
-      { id: 3, name: 'Esther Mhina', avatar: 'https://i.pravatar.cc/150?img=43', rating: 4, comment: 'Good guidance on loan matters.', date: '2026-01-08' }
-    ]
-  },
-  { 
-    id: 13, 
-    name: 'New Library', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.7732, 39.2068], 
-    desc: 'New university library building.',
-    detailedDesc: 'The New Library is a modern facility with digital resources, group study rooms, multimedia centers, and extensive e-book collections.',
-    distance: 560,
-    duration: 8,
-    wifi: true, 
-    ac: true, 
-    parking: true,
-    wheelchair: true,
-    food: false,
-    charging: true,
-    openingHours: 'Mon-Sun: 7:00 AM - 11:00 PM',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Alex Mwanajuni', avatar: 'https://i.pravatar.cc/150?img=32', rating: 5, comment: 'Amazing modern facilities!', date: '2026-01-25' },
-      { id: 2, name: 'Jane Mkamba', avatar: 'https://i.pravatar.cc/150?img=44', rating: 5, comment: 'Best place for research work.', date: '2026-01-19' },
-      { id: 3, name: 'Freddy Masanja', avatar: 'https://i.pravatar.cc/150?img=33', rating: 5, comment: 'Great e-book collection!', date: '2026-01-13' },
-      { id: 4, name: 'Agnes Njau', avatar: 'https://i.pravatar.cc/150?img=45', rating: 4, comment: 'Spacious and quiet environment.', date: '2026-01-07' },
-      { id: 5, name: 'Benedict Mushi', avatar: 'https://i.pravatar.cc/150?img=34', rating: 4, comment: 'Excellent study rooms.', date: '2026-01-01' }
-    ]
-  },
-  { 
-    id: 14, 
-    name: 'Nkurumah', 
-    type: 'Academic', 
-    status: 'Open', 
-    coords: [-6.7760, 39.2078], 
-    desc: 'Nkurumah lecture block.',
-    detailedDesc: 'Named after Ghana\'s first President, Nkurumah Block houses multiple lecture halls and tutorial rooms for various departments.',
-    distance: 270,
-    duration: 4,
-    wifi: true, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: false,
-    openingHours: 'Mon-Sat: 7:00 AM - 9:00 PM',
-    population: 'medium',
-    reviews: [
-      { id: 1, name: 'Georges Mwakyusa', avatar: 'https://i.pravatar.cc/150?img=35', rating: 4, comment: 'Central location makes it convenient.', date: '2026-01-22' },
-      { id: 2, name: 'Monica Nyagawa', avatar: 'https://i.pravatar.cc/150?img=46', rating: 3, comment: 'Can get crowded between classes.', date: '2026-01-16' },
-      { id: 3, name: 'Abdul Msangi', avatar: 'https://i.pravatar.cc/150?img=36', rating: 4, comment: 'Good lecture rooms with good lighting.', date: '2026-01-10' },
-      { id: 4, name: 'Violeth Mwalukongo', avatar: 'https://i.pravatar.cc/150?img=47', rating: 4, comment: 'Reliable WiFi in common areas.', date: '2026-01-04' }
-    ]
-  },
-  { 
-    id: 15, 
-    name: 'Halls 2 Hostels', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.7755, 39.2105], 
-    desc: 'Halls 2 student hostels.',
-    detailedDesc: 'Halls 2 provides on-campus accommodation for students with various room options, common rooms, and 24-hour security.',
-    distance: 480,
-    duration: 7,
-    wifi: false, 
-    ac: false, 
-    parking: false,
-    wheelchair: false,
-    food: true,
-    charging: false,
-    openingHours: '24/7 (Residence)',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Kelvin Mushi', avatar: 'https://i.pravatar.cc/150?img=37', rating: 3, comment: 'Basic but affordable accommodation.', date: '2026-01-21' },
-      { id: 2, name: 'Gloria Mtegeme', avatar: 'https://i.pravatar.cc/150?img=48', rating: 3, comment: 'Good social environment.', date: '2026-01-15' },
-      { id: 3, name: 'John Mwakanyamale', avatar: 'https://i.pravatar.cc/150?img=38', rating: 4, comment: 'Close to cafeteria and library.', date: '2026-01-09' },
-      { id: 4, name: 'Mariam Mwakidudu', avatar: 'https://i.pravatar.cc/150?img=49', rating: 2, comment: 'Facilities need renovation.', date: '2026-01-03' },
-      { id: 5, name: 'Bakari Mgeni', avatar: 'https://i.pravatar.cc/150?img=39', rating: 3, comment: 'Good security and location.', date: '2026-12-28' }
-    ]
-  },
-  { 
-    id: 16, 
-    name: 'Luhanga Hall Block A', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.7745, 39.2095], 
-    desc: 'Luhanga Hall Block A accommodation.',
-    detailedDesc: 'Luhanga Hall Block A is a residential block offering comfortable student accommodation with modern facilities, common study areas, and 24-hour support services.',
-    distance: 390,
-    duration: 6,
-    wifi: true, 
-    ac: false, 
-    parking: false,
-    wheelchair: true,
-    food: true,
-    charging: true,
-    openingHours: '24/7 (Residence)',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Patricia Mwanza', avatar: 'https://i.pravatar.cc/150?img=40', rating: 4, comment: 'Great location and friendly residents.', date: '2026-01-23' },
-      { id: 2, name: 'Daniel Kipchoge', avatar: 'https://i.pravatar.cc/150?img=50', rating: 4, comment: 'Good WiFi connectivity throughout.', date: '2026-01-17' },
-      { id: 3, name: 'Sophie Kasanga', avatar: 'https://i.pravatar.cc/150?img=41', rating: 5, comment: 'Clean rooms and helpful staff.', date: '2026-01-11' },
-      { id: 4, name: 'Marcus Karungi', avatar: 'https://i.pravatar.cc/150?img=51', rating: 4, comment: 'Convenient to lecture halls.', date: '2026-01-05' }
-    ]
-  },
-  { 
-    id: 17, 
-    name: 'Mzizima Vimbweta Block C', 
-    type: 'Service', 
-    status: 'Open', 
-    coords: [-6.7765, 39.2089], 
-    desc: 'Mzizima Vimbweta Block C residence.',
-    detailedDesc: 'Mzizima Vimbweta Block C provides spacious residential facilities with excellent amenities, recreational areas, and proximity to academic buildings.',
-    distance: 520,
-    duration: 7,
-    wifi: true, 
-    ac: true, 
-    parking: false,
-    wheelchair: true,
-    food: true,
-    charging: true,
-    openingHours: '24/7 (Residence)',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Amelia Nkosi', avatar: 'https://i.pravatar.cc/150?img=42', rating: 5, comment: 'Best residential block on campus!', date: '2026-01-24' },
-      { id: 2, name: 'Isaac Kiplagat', avatar: 'https://i.pravatar.cc/150?img=52', rating: 4, comment: 'AC keeps rooms cool and comfortable.', date: '2026-01-18' },
-      { id: 3, name: 'Natasha Mwangi', avatar: 'https://i.pravatar.cc/150?img=43', rating: 5, comment: 'Excellent facilities and management.', date: '2026-01-12' },
-      { id: 4, name: 'Victor Okonkwo', avatar: 'https://i.pravatar.cc/150?img=53', rating: 4, comment: 'Safe and secure environment.', date: '2026-01-06' },
-      { id: 5, name: 'Helen Mwale', avatar: 'https://i.pravatar.cc/150?img=44', rating: 5, comment: 'Love living here! Great community.', date: '2026-12-31' }
-    ]
-  },
-  { 
-    id: 18, 
-    name: 'Block A', 
-    type: 'Academic', 
-    status: 'Open', 
-    coords: [-6.7770, 39.2075], 
-    desc: 'Block A lecture and administrative facility.',
-    detailedDesc: 'Block A is a multi-purpose academic building housing lecture halls, tutorial rooms, and departmental offices for various faculties.',
-    distance: 330,
-    duration: 5,
-    wifi: true, 
-    ac: true, 
-    parking: true,
-    wheelchair: true,
-    food: false,
-    charging: true,
-    openingHours: 'Mon-Sat: 7:00 AM - 9:00 PM',
-    population: 'high',
-    reviews: [
-      { id: 1, name: 'Rashid Hassan', avatar: 'https://i.pravatar.cc/150?img=45', rating: 4, comment: 'Well-maintained lecture halls.', date: '2026-01-25' },
-      { id: 2, name: 'Jasmine Kamau', avatar: 'https://i.pravatar.cc/150?img=54', rating: 5, comment: 'Great facilities and air conditioning.', date: '2026-01-19' },
-      { id: 3, name: 'Kenneth Mwangi', avatar: 'https://i.pravatar.cc/150?img=46', rating: 4, comment: 'Good WiFi and charging stations.', date: '2026-01-13' },
-      { id: 4, name: 'Comfort Banda', avatar: 'https://i.pravatar.cc/150?img=55', rating: 5, comment: 'Accessible and modern building.', date: '2026-01-07' }
-    ]
-  }
-
-  ,{ 
-    id: 19,
-    name: 'Department of Mathematics Office',
-    type: 'Academic',
-    status: 'Open',
-    coords: [-6.7759, 39.2082],
-    desc: 'Departmental office for Mathematics faculty and student advising.',
-    detailedDesc: 'Handles course scheduling, student advising, and research coordination for the Mathematics department.',
-    distance: 250,
-    duration: 4,
-    wifi: true,
-    ac: false,
-    parking: false,
-    wheelchair: true,
-    food: false,
-    charging: false,
-    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
-    population: 'medium',
-    staff: [
-      { name: 'Prof. Amina K.', title: 'Head of Mathematics', availability: 'available', phone: '+255 22 241 0101', email: 'amina.k@udsm.ac.tz' },
-      { name: 'Dr. Paul S.', title: 'Senior Lecturer', availability: 'busy', phone: '+255 22 241 0102', email: 'paul.s@udsm.ac.tz' }
-    ],
-    reviews: [
-      { id: 1, name: 'Student A', rating: 5, comment: 'Helpful admin staff and clear advising.', date: '2026-02-05' }
-    ]
-  },
-
-  { 
-    id: 20,
-    name: 'Department of Computer Science Office',
-    type: 'Academic',
-    status: 'Open',
-    coords: [-6.7762, 39.2087],
-    desc: 'Computer Science department office and lab bookings.',
-    detailedDesc: 'Central office for CS administrative matters, lab reservations, and project supervision.',
-    distance: 310,
-    duration: 5,
     wifi: true,
     ac: true,
     parking: true,
     wheelchair: true,
     food: false,
     charging: true,
-    openingHours: 'Mon-Fri: 8:00 AM - 6:00 PM',
-    population: 'high',
-    staff: [
-      { name: 'Dr. James O.', title: 'Department Chair', availability: 'available', phone: '+255 22 241 0110', email: 'james.o@udsm.ac.tz' },
-      { name: 'Ms. Linda R.', title: 'Lab Coordinator', availability: 'available', phone: '+255 22 241 0111', email: 'linda.r@udsm.ac.tz' }
-    ],
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM | Emergency: 24/7',
+    population: 'medium',
     reviews: [
-      { id: 1, name: 'Student B', rating: 5, comment: 'Excellent lab support!', date: '2026-02-12' }
+      { name: 'Ahmed Hassan', rating: 5, comment: 'Quick medical attention and caring staff. Very responsive to emergencies.', date: '2026-02-25' },
+      { name: 'Grace Mwaki', rating: 4, comment: 'Good health services but waiting time can be long during peak hours.', date: '2026-02-20' },
+      { name: 'Peter Kimani', rating: 5, comment: 'Professional doctors and clean facilities. Highly recommended!', date: '2026-02-15' },
+      { name: 'Zainab Mbwana', rating: 4, comment: 'Affordable consultations and helpful staff members.', date: '2026-02-10' }
     ]
   },
-
-  { 
-    id: 21,
-    name: 'Department of Physics Office',
-    type: 'Academic',
-    status: 'Occupied',
-    coords: [-6.7747, 39.2079],
-    desc: 'Physics department office and demonstration lab scheduling.',
-    detailedDesc: 'Administrative hub for Physics faculty including lab bookings, equipment loans, and exams coordination.',
-    distance: 270,
-    duration: 4,
+  {
+    id: 2,
+    name: 'Library Services (Main Library)',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7745, 39.2088],
+    desc: 'Central academic library with books, research materials, study spaces, and photocopying.',
+    detailedDesc: 'The Main Library is the hub of academic resources at UDSM, offering extensive book collections, digital research databases, quiet study rooms, reference desk assistance, computer labs, and high-speed internet access for all academic pursuits.',
+    distance: 350,
+    duration: 5,
     wifi: true,
-    ac: false,
+    ac: true,
     parking: false,
-    wheelchair: false,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Sun: 8:00 AM - 8:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Catherine Rite', rating: 5, comment: 'Perfect quiet environment for studying. Excellent book collection!', date: '2026-02-22' },
+      { name: 'Andrew Masudi', rating: 5, comment: 'Best research facility on campus. WiFi is reliable and staff are helpful.', date: '2026-02-18' },
+      { name: 'Rachel Gomes', rating: 4, comment: 'Great resources but sometimes crowded during exam periods.', date: '2026-02-14' },
+      { name: 'Samuel Juma', rating: 4, comment: 'Good lighting and comfortable study spaces. Highly recommend.', date: '2026-02-08' },
+      { name: 'Deborah Swai', rating: 5, comment: 'My favorite study spot on campus. Always clean and organized!', date: '2026-02-03' }
+    ]
+  },
+  {
+    id: 3,
+    name: 'UDSM Post Office',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7758, 39.2102],
+    desc: 'On-campus post office serving students and staff for mailing and parcels.',
+    detailedDesc: 'The UDSM Post Office provides comprehensive postal services including domestic and international mailing, parcel handling, package tracking, and postal box rentals for convenient campus mail delivery.',
+    distance: 420,
+    duration: 6,
+    wifi: false,
+    ac: false,
+    parking: true,
+    wheelchair: true,
     food: false,
     charging: false,
     openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
-    population: 'medium',
-    staff: [
-      { name: 'Prof. Daniel M.', title: 'Head of Physics', availability: 'available', phone: '+255 22 241 0120', email: 'daniel.m@udsm.ac.tz' }
-    ],
-    reviews: []
+    population: 'low',
+    reviews: [
+      { name: 'Fatuma Hamad', rating: 4, comment: 'Efficient postal services and reasonable rates.', date: '2026-02-20' },
+      { name: 'Hamis Juma', rating: 3, comment: 'Service is okay, but can be slow during busy times.', date: '2026-02-16' },
+      { name: 'Zainab Khamis', rating: 4, comment: 'Good parcel handling and helpful staff members.', date: '2026-02-10' }
+    ]
   },
-
-  { 
-    id: 22,
-    name: 'Department of History Office',
-    type: 'Academic',
+  {
+    id: 4,
+    name: 'Bank Services (ATM Centre)',
+    type: 'Service',
     status: 'Open',
-    coords: [-6.7752, 39.2069],
-    desc: 'History department administrative office and student services.',
-    detailedDesc: 'Provides course guidance, thesis submission support and event coordination for the History department.',
+    coords: [-6.7752, 39.2078],
+    desc: 'Major banks with cash services and ATMs available on campus near Cafeteria 1 & 2.',
+    detailedDesc: 'Campus Banking Centre featuring CRDB, NBC, and NMB ATM services and banking support, providing convenient financial transactions for students and staff without leaving campus.',
+    distance: 310,
+    duration: 5,
+    wifi: false,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Daily: 8:00 AM - 6:00 PM (ATM 24/7)',
+    population: 'high',
+    reviews: [
+      { name: 'Martin Lupembe', rating: 5, comment: 'Multiple ATMs available, very convenient for students.', date: '2026-02-21' },
+      { name: 'Angel John', rating: 4, comment: 'Good banking services right on campus. Staff are helpful.', date: '2026-02-13' },
+      { name: 'Francis Mtei', rating: 5, comment: 'Fast transactions and reliable ATMs. Highly recommended!', date: '2026-02-07' }
+    ]
+  },
+  {
+    id: 5,
+    name: 'University Computing Centre (UCC)',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7762, 39.2085],
+    desc: 'ICT support and computing services for students and staff.',
+    detailedDesc: 'The University Computing Centre provides technical IT support, hardware troubleshooting, software licensing, network assistance, and computer training labs to support the campus digital infrastructure.',
     distance: 290,
     duration: 4,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'medium',
+    reviews: [
+      { name: 'Steven Kyaruzi', rating: 5, comment: 'Excellent technical support team. Very responsive!', date: '2026-02-23' },
+      { name: 'Irene Nyerere', rating: 4, comment: 'Good IT solutions and knowledgeable staff members.', date: '2026-02-17' },
+      { name: 'Daniel Mdegella', rating: 4, comment: 'Helpful for network issues and software installations.', date: '2026-02-11' }
+    ]
+  },
+  {
+    id: 6,
+    name: 'Cafeteria 1 (Main Campus)',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7748, 39.2092],
+    desc: 'Primary student dining hall with a variety of meals and snacks.',
+    detailedDesc: 'The main campus cafeteria offers diverse meal options including breakfast, lunch, and dinner with local and international dishes, fair pricing, and comfortable seating for students and staff.',
+    distance: 200,
+    duration: 3,
+    wifi: true,
+    ac: true,
+    parking: false,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: 'Daily: 7:00 AM - 9:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Diana Mhina', rating: 4, comment: 'Good variety of meals and reasonable prices.', date: '2026-02-19' },
+      { name: 'Joseph Mushi', rating: 4, comment: 'Tasty food with quick service during lunch hours.', date: '2026-02-14' },
+      { name: 'Gladness Mbise', rating: 5, comment: 'Best affordable food spot on campus!', date: '2026-02-09' }
+    ]
+  },
+  {
+    id: 7,
+    name: 'Cafeteria 2 (Near Library)',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7740, 39.2080],
+    desc: 'Popular student food court with light snacks and beverages.',
+    detailedDesc: 'Secondary cafeteria near library offering quick snacks, beverages, light meals, and refreshments perfect for studying or quick breaks between classes.',
+    distance: 380,
+    duration: 5,
     wifi: true,
     ac: false,
     parking: false,
     wheelchair: true,
-    food: false,
-    charging: false,
-    openingHours: 'Mon-Fri: 9:00 AM - 4:00 PM',
-    population: 'low',
-    staff: [
-      { name: 'Dr. Mercy N.', title: 'Department Secretary', availability: 'available', phone: '+255 22 241 0130', email: 'mercy.n@udsm.ac.tz' }
-    ],
-    reviews: []
+    food: true,
+    charging: true,
+    openingHours: 'Daily: 7:00 AM - 7:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Victor Lawrence', rating: 4, comment: 'Great snacks and beverages. Convenient near library.', date: '2026-02-21' },
+      { name: 'Jackline Mushi', rating: 4, comment: 'Quick service and good quality refreshments.', date: '2026-02-15' },
+      { name: 'Oscar Mwakibete', rating: 3, comment: 'Good food but can get crowded during peak hours.', date: '2026-02-09' }
+    ]
   },
 
-  { 
-    id: 23,
-    name: 'Department of Economics Office',
+  // ===== ACADEMIC & TEACHING LOCATIONS =====
+  {
+    id: 8,
+    name: 'Department of Computer Science & Engineering',
     type: 'Academic',
     status: 'Open',
-    coords: [-6.7768, 39.2090],
-    desc: 'Economics department office for student affairs and internships.',
-    detailedDesc: 'Handles internship placements, course queries and department events for Economics students.',
-    distance: 340,
+    coords: [-6.7755, 39.2075],
+    desc: 'Core computing department offering undergraduate & postgraduate programs.',
+    detailedDesc: 'The Department of Computer Science & Engineering is renowned for its advanced computing programs, offering lectures, practical labs, research facilities, and academic advising for all computing disciplines.',
+    distance: 320,
     duration: 5,
     wifi: true,
     ac: true,
@@ -571,43 +190,590 @@ const mockLocations = [
     food: false,
     charging: true,
     openingHours: 'Mon-Fri: 8:00 AM - 5:00 PM',
-    population: 'medium',
+    population: 'high',
     staff: [
-      { name: 'Prof. Susan T.', title: 'Department Head', availability: 'busy', phone: '+255 22 241 0140', email: 'susan.t@udsm.ac.tz' },
-      { name: 'Mr. Alex G.', title: 'Student Coordinator', availability: 'available', phone: '+255 22 241 0141', email: 'alex.g@udsm.ac.tz' }
+      { name: 'Prof. James Mwase', title: 'Department Head', availability: 'available', phone: '+255 22 241 0501', email: 'j.mwase@udsm.ac.tz' },
+      { name: 'Dr. Linda Kimani', title: 'Senior Lecturer', availability: 'busy', phone: '+255 22 241 0502', email: 'l.kimani@udsm.ac.tz' },
+      { name: 'Mr. Kenneth Mwangi', title: 'Lab Coordinator', availability: 'available', phone: '+255 22 241 0503', email: 'k.mwangi@udsm.ac.tz' }
     ],
-    reviews: []
+    reviews: [
+      { name: 'Rashid Hassan', rating: 5, comment: 'Excellent computing labs and resources. Great faculty!', date: '2026-02-25' },
+      { name: 'Jasmine Kamau', rating: 5, comment: 'Modern facilities and supportive academic environment.', date: '2026-02-19' },
+      { name: 'Kenneth Mwangi', rating: 4, comment: 'Good labs but WiFi can be slow during peak hours.', date: '2026-02-13' },
+      { name: 'Comfort Banda', rating: 5, comment: 'Accessible building with state-of-the-art equipment!', date: '2026-02-07' }
+    ]
   },
-
-  { 
-    id: 24,
-    name: 'Department of Mechanical Engineering Office',
+  {
+    id: 9,
+    name: 'Department of Electronics & Telecommunication Engineering',
     type: 'Academic',
     status: 'Open',
-    coords: [-6.7775, 39.2098],
-    desc: 'Mechanical Engineering admin office and workshop coordination.',
-    detailedDesc: 'Coordinates workshop sessions, equipment loans and industrial attachment programs for Mechanical Engineering students.',
+    coords: [-6.7768, 39.2098],
+    desc: 'Engineering department focused on electronics, telecommunications & research.',
+    detailedDesc: 'The Department of Electronics & Telecommunication Engineering offers specialized labs, telecommunications equipment, research facilities, and practical training for advanced engineering studies.',
+    distance: 410,
+    duration: 6,
+    wifi: true,
+    ac: false,
+    parking: true,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 5:00 PM',
+    population: 'medium',
+    staff: [
+      { name: 'Prof. Robert Kipchoge', title: 'Department Chair', availability: 'available', phone: '+255 22 241 0510', email: 'r.kipchoge@udsm.ac.tz' },
+      { name: 'Dr. Nancy Lyimo', title: 'Lab Director', availability: 'available', phone: '+255 22 241 0511', email: 'n.lyimo@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Kevin Mwakibete', rating: 5, comment: 'State-of-the-art labs and excellent equipment!', date: '2026-02-21' },
+      { name: 'Nancy Lyimo', rating: 4, comment: 'Good study environment and knowledgeable staff.', date: '2026-02-16' },
+      { name: 'Brian Mushi', rating: 4, comment: 'Spacious building with good ventilation.', date: '2026-02-11' },
+      { name: 'Patricia Sanga', rating: 4, comment: 'Excellent practical training opportunities.', date: '2026-02-06' }
+    ]
+  },
+  {
+    id: 10,
+    name: 'Centre for Virtual Learning (CVL)',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7770, 39.2070],
+    desc: 'Facilitates online and blended learning systems.',
+    detailedDesc: 'The Centre for Virtual Learning supports e-learning initiatives, virtual course delivery, online student engagement, and digital education technology training for modern academic needs.',
+    distance: 450,
+    duration: 6,
+    wifi: true,
+    ac: true,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'low',
+    staff: [
+      { name: 'Dr. Emily Jackson', title: 'Director', availability: 'available', phone: '+255 22 241 0520', email: 'e.jackson@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Student A', rating: 5, comment: 'Innovative e-learning platform and great support.', date: '2026-02-20' },
+      { name: 'Student B', rating: 4, comment: 'Good virtual learning tools and technical assistance.', date: '2026-02-12' }
+    ]
+  },
+  {
+    id: 11,
+    name: 'Lecture Theatre Block A',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7750, 39.2085],
+    desc: 'Houses large lecture spaces for core courses.',
+    detailedDesc: 'Lecture Theatre Block A features large auditoriums equipped with modern audio-visual systems, comfortable seating for 200-300 students, and facilities for seminars and presentations.',
+    distance: 250,
+    duration: 4,
+    wifi: true,
+    ac: false,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Sat: 7:00 AM - 9:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Peter Ngowi', rating: 4, comment: 'Great acoustics and projector quality.', date: '2026-02-20' },
+      { name: 'Lisa Mrema', rating: 3, comment: 'Gets warm during afternoon classes without AC.', date: '2026-02-15' },
+      { name: 'Tom Harris', rating: 5, comment: 'Best lecture theatre on campus!', date: '2026-02-10' },
+      { name: 'Joyce Sebastian', rating: 4, comment: 'Comfortable seating and good facilities.', date: '2026-02-05' }
+    ]
+  },
+  {
+    id: 12,
+    name: 'Lecture Theatre Block B',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7745, 39.2075],
+    desc: 'Secondary lecture hall block for mid-size classes.',
+    detailedDesc: 'Lecture Theatre Block B provides mid-sized lecture halls with modern presentation equipment, suitable for 100-150 student capacity classes and group activities.',
+    distance: 320,
+    duration: 5,
+    wifi: true,
+    ac: false,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Sat: 7:00 AM - 9:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Georges Mwakyusa', rating: 4, comment: 'Central location and good facilities.', date: '2026-02-22' },
+      { name: 'Monica Nyagawa', rating: 3, comment: 'Can get crowded between class changes.', date: '2026-02-16' },
+      { name: 'Abdul Msangi', rating: 4, comment: 'Good lecture rooms with excellent lighting.', date: '2026-02-10' },
+      { name: 'Violeth Mwalukongo', rating: 4, comment: 'Reliable WiFi and good audio systems.', date: '2026-02-04' }
+    ]
+  },
+  {
+    id: 13,
+    name: 'Faculty of Science Lecture Hall',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7765, 39.2090],
+    desc: 'Host for science faculty lectures and labs.',
+    detailedDesc: 'The Faculty of Science Lecture Hall complex includes lecture spaces, laboratory facilities, and workshop areas for physics, chemistry, biology, and mathematics teaching with modern equipment.',
+    distance: 380,
+    duration: 5,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 5:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Student C', rating: 5, comment: 'Excellent science labs and teaching facilities.', date: '2026-02-21' },
+      { name: 'Student D', rating: 4, comment: 'Good equipment but labs can get crowded.', date: '2026-02-15' },
+      { name: 'Student E', rating: 4, comment: 'Modern facilities and supportive staff.', date: '2026-02-09' }
+    ]
+  },
+  {
+    id: 14,
+    name: 'Engineering Workshop Labs',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7772, 39.2092],
+    desc: 'Hands-on engineering labs for mechanical and electrical practice.',
+    detailedDesc: 'Engineering Workshop Labs provide hands-on practical training with advanced machinery, tools, and equipment for mechanical engineering, electrical engineering, and fabrication projects.',
+    distance: 490,
+    duration: 7,
+    wifi: false,
+    ac: false,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Fri: 8:00 AM - 5:00 PM',
+    population: 'medium',
+    reviews: [
+      { name: 'Student F', rating: 5, comment: 'Great practical experience with modern equipment!', date: '2026-02-23' },
+      { name: 'Student G', rating: 4, comment: 'Good workshop facilities and experienced instructors.', date: '2026-02-17' }
+    ]
+  },
+  {
+    id: 15,
+    name: 'School of Business Lecture Block',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7758, 39.2070],
+    desc: 'Lecture block for business & management courses.',
+    detailedDesc: 'The School of Business Lecture Block houses business faculty, dedicated lecture halls for management and economics courses, group work spaces, and business research facilities.',
+    distance: 370,
+    duration: 5,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 5:00 PM',
+    population: 'high',
+    staff: [
+      { name: 'Prof. Susan Trumbull', title: 'Dean of Business', availability: 'busy', phone: '+255 22 241 0530', email: 's.trumbull@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Student H', rating: 5, comment: 'Modern business school with excellent facilities.', date: '2026-02-20' },
+      { name: 'Student I', rating: 4, comment: 'Good teaching environment and supportive faculty.', date: '2026-02-14' }
+    ]
+  },
+
+  // ===== ADMINISTRATIVE & STUDENT SERVICES =====
+  {
+    id: 16,
+    name: 'Registry Office',
+    type: 'Admin',
+    status: 'Open',
+    coords: [-6.7755, 39.2095],
+    desc: 'Central office for student records, registration & documentation.',
+    detailedDesc: 'The Registry Office maintains comprehensive student records, manages academic registration, issues transcripts and certificates, provides enrollment verification, and ensures documentation accuracy.',
+    distance: 300,
+    duration: 4,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'high',
+    staff: [
+      { name: 'Mr. Amjad Hassan', title: 'Registrar', availability: 'available', phone: '+255 22 241 0600', email: 'a.hassan@udsm.ac.tz' },
+      { name: 'Ms. Grace Mwaki', title: 'Records Officer', availability: 'available', phone: '+255 22 241 0601', email: 'g.mwaki@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Emily Jackson', rating: 5, comment: 'Got my transcript within 2 days. Very efficient!', date: '2026-02-18' },
+      { name: 'Michael Chen', rating: 4, comment: 'Professional staff and clear processes.', date: '2026-02-12' },
+      { name: 'Anna Mwamba', rating: 4, comment: 'Good AC and comfortable waiting area.', date: '2026-02-08' },
+      { name: 'James Wilson', rating: 3, comment: 'Busy during exam periods.', date: '2026-02-02' }
+    ]
+  },
+  {
+    id: 17,
+    name: 'Bursar\'s Office',
+    type: 'Admin',
+    status: 'Open',
+    coords: [-6.7760, 39.2100],
+    desc: 'Handles student fee payments and financial support.',
+    detailedDesc: 'The Bursar\'s Office manages tuition fee payments, accommodation charges, financial aid distribution, student loan processing, and provides financial counseling services.',
+    distance: 330,
+    duration: 5,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'medium',
+    staff: [
+      { name: 'Mrs. Jackline Banda', title: 'Bursar', availability: 'busy', phone: '+255 22 241 0610', email: 'j.banda@udsm.ac.tz' },
+      { name: 'Mr. Joseph Mushi', title: 'Payments Officer', availability: 'available', phone: '+255 22 241 0611', email: 'j.mushi@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Martin Lupembe', rating: 3, comment: 'Long waiting times but helpful staff.', date: '2026-02-19' },
+      { name: 'Angel John', rating: 3, comment: 'Can be hectic during payment deadlines.', date: '2026-02-13' },
+      { name: 'Francis Mtei', rating: 4, comment: 'Payment process is straightforward.', date: '2026-02-07' }
+    ]
+  },
+  {
+    id: 18,
+    name: 'Student Affairs Office',
+    type: 'Admin',
+    status: 'Open',
+    coords: [-6.7750, 39.2088],
+    desc: 'Manages student welfare, guidance, and support services.',
+    detailedDesc: 'Student Affairs Office provides comprehensive support including counseling services, welfare guidance, student club coordination, special needs assistance, and student welfare programs.',
+    distance: 280,
+    duration: 4,
+    wifi: true,
+    ac: true,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'low',
+    staff: [
+      { name: 'Dr. Amina Yusufu', title: 'Dean of Students', availability: 'available', phone: '+255 22 241 0620', email: 'a.yusufu@udsm.ac.tz' },
+      { name: 'Ms. Rehema Sadiki', title: 'Counselor', availability: 'available', phone: '+255 22 241 0621', email: 'r.sadiki@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Fatuma Hamad', rating: 5, comment: 'Very supportive counselors and helpful guidance!', date: '2026-02-22' },
+      { name: 'Hamis Juma', rating: 4, comment: 'Great support for student club activities.', date: '2026-02-16' },
+      { name: 'Zainab Mbwana', rating: 5, comment: 'Excellent care and understanding staff.', date: '2026-02-10' }
+    ]
+  },
+  {
+    id: 19,
+    name: 'Directorate of Human Resources',
+    type: 'Admin',
+    status: 'Open',
+    coords: [-6.7765, 39.2105],
+    desc: 'Coordinates staff HR services and admin support.',
+    detailedDesc: 'The Directorate of Human Resources manages staff recruitment, payroll administration, benefits processing, professional development, and comprehensive HR support for campus staff.',
+    distance: 360,
+    duration: 5,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'low',
+    staff: [
+      { name: 'Mr. Paul Kyaruzi', title: 'HR Director', availability: 'busy', phone: '+255 22 241 0630', email: 'p.kyaruzi@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Staff Member A', rating: 4, comment: 'Efficient HR services and professional handling.', date: '2026-02-21' },
+      { name: 'Staff Member B', rating: 4, comment: 'Good support for staff benefits and payroll.', date: '2026-02-15' }
+    ]
+  },
+  {
+    id: 20,
+    name: 'Directorate of Undergraduate Studies',
+    type: 'Admin',
+    status: 'Open',
+    coords: [-6.7748, 39.2080],
+    desc: 'Oversees undergraduate academic programs & policies.',
+    detailedDesc: 'This directorate administers undergraduate curriculum, degree requirements, academic policies, student advising, program development, and ensures quality undergraduate education delivery.',
+    distance: 340,
+    duration: 5,
+    wifi: true,
+    ac: true,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'medium',
+    staff: [
+      { name: 'Prof. Daniel Kipchoge', title: 'Director', availability: 'available', phone: '+255 22 241 0640', email: 'd.kipchoge@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Student J', rating: 5, comment: 'Clear academic guidelines and helpful advising!', date: '2026-02-20' },
+      { name: 'Student K', rating: 4, comment: 'Good coordination of academic programs.', date: '2026-02-14' }
+    ]
+  },
+
+  // ===== STUDENT LIFE & SOCIAL SPACES =====
+  {
+    id: 21,
+    name: 'UDSM Gym & Sports Complex',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7735, 39.2110],
+    desc: 'Fitness gym and courts for student wellness.',
+    detailedDesc: 'The Sports Complex features a full fitness gym with modern equipment, basketball courts, tennis courts, football field, athlete training areas, and organized fitness programs.',
+    distance: 520,
+    duration: 7,
+    wifi: false,
+    ac: false,
+    parking: true,
+    wheelchair: true,
+    food: true,
+    charging: false,
+    openingHours: 'Daily: 6:00 AM - 9:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Victor Lawrence', rating: 5, comment: 'Great facilities for sports and fitness!', date: '2026-02-23' },
+      { name: 'Jackline Mushi', rating: 5, comment: 'Well-maintained courts and modern gym equipment.', date: '2026-02-17' },
+      { name: 'Oscar Mwakibete', rating: 4, comment: 'Good place for fitness and team sports.', date: '2026-02-11' }
+    ]
+  },
+  {
+    id: 22,
+    name: 'Student Union Building',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7752, 39.2098],
+    desc: 'Central student organization space with meeting rooms & lounges.',
+    detailedDesc: 'The Student Union Building serves as the hub for student organizations, clubs, and activities, featuring meeting rooms, lounges, event spaces, and recreational facilities.',
+    distance: 290,
+    duration: 4,
+    wifi: true,
+    ac: true,
+    parking: false,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: 'Mon-Sat: 8:00 AM - 8:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Shukuru Mtei', rating: 5, comment: 'Great hub for student activities and clubs!', date: '2026-02-22' },
+      { name: 'Student L', rating: 4, comment: 'Good facilities for organization meetings.', date: '2026-02-16' }
+    ]
+  },
+  {
+    id: 23,
+    name: 'Cafeteria 3 (Sports Complex)',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7730, 39.2108],
+    desc: 'Casual eatery popular with sports attendees.',
+    detailedDesc: 'Located at the Sports Complex, this casual cafeteria offers quick snacks, sports beverages, light meals, and refreshments for athletes and fitness enthusiasts.',
+    distance: 540,
+    duration: 7,
+    wifi: false,
+    ac: false,
+    parking: true,
+    wheelchair: true,
+    food: true,
+    charging: false,
+    openingHours: 'Daily: 8:00 AM - 8:00 PM',
+    population: 'high',
+    reviews: [
+      { name: 'Kelvin Mushi', rating: 4, comment: 'Good snacks for athletes and sports fans.', date: '2026-02-21' },
+      { name: 'Gloria Mtegeme', rating: 4, comment: 'Convenient location near gym facilities.', date: '2026-02-15' }
+    ]
+  },
+  {
+    id: 24,
+    name: 'Bookshop / Campus Stationery',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7746, 39.2085],
+    desc: 'On-campus bookshop with academic materials and stationery.',
+    detailedDesc: 'The Campus Bookshop provides comprehensive academic resources including textbooks, reference materials, stationery supplies, educational software, and campus merchandise.',
+    distance: 310,
+    duration: 4,
+    wifi: false,
+    ac: true,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: false,
+    openingHours: 'Mon-Sat: 8:00 AM - 6:00 PM',
+    population: 'medium',
+    reviews: [
+      { name: 'John Mwakanyamale', rating: 4, comment: 'Good selection of textbooks and stationery.', date: '2026-02-20' },
+      { name: 'Mariam Mwakidudu', rating: 4, comment: 'Reasonable prices and helpful staff.', date: '2026-02-14' },
+      { name: 'Bakari Mgeni', rating: 3, comment: 'Good bookshop but can be busy during semester start.', date: '2026-02-08' }
+    ]
+  },
+
+  // ===== HOUSING & DORMS =====
+  {
+    id: 25,
+    name: 'Male Student Hostels - Block A',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7740, 39.2100],
+    desc: 'On-campus accommodation for male students.',
+    detailedDesc: 'Male Student Hostels Block A provides comfortable on-campus accommodation with single and shared rooms, common kitchen facilities, laundry services, and 24-hour security.',
     distance: 380,
     duration: 5,
     wifi: true,
     ac: false,
-    parking: true,
+    parking: false,
     wheelchair: false,
+    food: true,
+    charging: true,
+    openingHours: '24/7',
+    population: 'high',
+    reviews: [
+      { name: 'Student M', rating: 4, comment: 'Good accommodation with friendly residents.', date: '2026-02-22' },
+      { name: 'Student N', rating: 4, comment: 'WiFi is good and rooms are clean.', date: '2026-02-16' },
+      { name: 'Student O', rating: 3, comment: 'Basic facilities but affordable for students.', date: '2026-02-10' }
+    ]
+  },
+  {
+    id: 26,
+    name: 'Female Student Hostels - Block B',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7758, 39.2103],
+    desc: 'On-campus accommodation for female students.',
+    detailedDesc: 'Female Student Hostels Block B offers comfortable residential spaces with modern facilities, laundry services, common study lounges, and comprehensive security measures.',
+    distance: 340,
+    duration: 5,
+    wifi: true,
+    ac: false,
+    parking: false,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: '24/7',
+    population: 'high',
+    reviews: [
+      { name: 'Patricia Mwanza', rating: 5, comment: 'Great location and friendly environment!', date: '2026-02-23' },
+      { name: 'Sophie Kasanga', rating: 5, comment: 'Clean rooms and helpful management.', date: '2026-02-17' },
+      { name: 'Student P', rating: 4, comment: 'Good facilities and supportive community.', date: '2026-02-11' }
+    ]
+  },
+  {
+    id: 27,
+    name: 'Mixed Hostels - Block C',
+    type: 'Service',
+    status: 'Open',
+    coords: [-6.7768, 39.2090],
+    desc: 'Mixed accommodation block.',
+    detailedDesc: 'Mixed Hostels Block C provides diverse residential options with shared and private accommodations, study lounges, recreational areas, and dedicated support services.',
+    distance: 420,
+    duration: 6,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: true,
+    charging: true,
+    openingHours: '24/7',
+    population: 'high',
+    reviews: [
+      { name: 'Amelia Nkosi', rating: 5, comment: 'Best residential block with excellent amenities!', date: '2026-02-24' },
+      { name: 'Isaac Kiplagat', rating: 5, comment: 'AC rooms and great community atmosphere.', date: '2026-02-18' },
+      { name: 'Marcus Karungi', rating: 4, comment: 'Convenient to lecture halls and library.', date: '2026-02-12' }
+    ]
+  },
+
+  // ===== OTHER ACADEMIC / SERVICE LOCATIONS =====
+  {
+    id: 28,
+    name: 'Centre for Chinese Studies',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7755, 39.2075],
+    desc: 'Research & language support in Chinese studies.',
+    detailedDesc: 'The Centre for Chinese Studies facilitates language learning, cultural exchange, research collaborations with Chinese institutions, and promotes understanding of Chinese culture and development.',
+    distance: 320,
+    duration: 5,
+    wifi: true,
+    ac: true,
+    parking: false,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'low',
+    staff: [
+      { name: 'Prof. Li Chen', title: 'Director', availability: 'available', phone: '+255 22 241 0700', email: 'l.chen@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Student Q', rating: 5, comment: 'Excellent language learning programs!', date: '2026-02-21' },
+      { name: 'Student R', rating: 4, comment: 'Good resources for Chinese cultural studies.', date: '2026-02-15' }
+    ]
+  },
+  {
+    id: 29,
+    name: 'Institute of Kiswahili Studies',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7762, 39.2088],
+    desc: 'Focused on Kiswahili language research & training.',
+    detailedDesc: 'The Institute of Kiswahili Studies conducts research on Kiswahili language, offers linguistic training, supports language development projects, and preserves Kiswahili cultural heritage.',
+    distance: 290,
+    duration: 4,
+    wifi: true,
+    ac: false,
+    parking: false,
+    wheelchair: true,
     food: false,
     charging: false,
     openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
     population: 'medium',
     staff: [
-      { name: 'Dr. Robert K.', title: 'Head of Mechanical Eng.', availability: 'available', phone: '+255 22 241 0150', email: 'robert.k@udsm.ac.tz' }
+      { name: 'Dr. Amina Khamis', title: 'Institute Director', availability: 'available', phone: '+255 22 241 0710', email: 'a.khamis@udsm.ac.tz' }
     ],
-    reviews: []
+    reviews: [
+      { name: 'Student S', rating: 5, comment: 'Excellent Kiswahili language programs!', date: '2026-02-20' },
+      { name: 'Student T', rating: 4, comment: 'Great linguistic expertise and support.', date: '2026-02-14' }
+    ]
+  },
+  {
+    id: 30,
+    name: 'Centre for Climate Change Studies',
+    type: 'Academic',
+    status: 'Open',
+    coords: [-6.7770, 39.2078],
+    desc: 'Research centre for climate impact & sustainability.',
+    detailedDesc: 'This research centre conducts climate change studies, environmental research, sustainability initiatives, and provides scientific data for policy development and community engagement.',
+    distance: 450,
+    duration: 6,
+    wifi: true,
+    ac: true,
+    parking: true,
+    wheelchair: true,
+    food: false,
+    charging: true,
+    openingHours: 'Mon-Fri: 8:00 AM - 4:00 PM',
+    population: 'low',
+    staff: [
+      { name: 'Prof. Michael Mwase', title: 'Research Director', availability: 'busy', phone: '+255 22 241 0720', email: 'm.mwase@udsm.ac.tz' }
+    ],
+    reviews: [
+      { name: 'Student U', rating: 5, comment: 'Cutting-edge climate research initiatives!', date: '2026-02-22' },
+      { name: 'Student V', rating: 5, comment: 'Excellent research facilities and expert staff.', date: '2026-02-16' }
+    ]
   }
 ];
 
-// Helper function to get location by ID
 export const getLocationById = (id) => mockLocations.find(loc => loc.id === id);
 
-// Helper function to search locations by name, staff, or service
 export const searchLocations = (query) => {
   const q = query.toLowerCase().trim();
   if (!q) return [];
@@ -616,8 +782,7 @@ export const searchLocations = (query) => {
     loc.name.toLowerCase().includes(q) ||
     loc.desc.toLowerCase().includes(q) ||
     loc.type.toLowerCase().includes(q) ||
-    loc.detailedDesc.toLowerCase().includes(q) ||
-    (loc.services && loc.services.some(s => s.toLowerCase().includes(q)))
+    loc.detailedDesc.toLowerCase().includes(q)
   );
 };
 

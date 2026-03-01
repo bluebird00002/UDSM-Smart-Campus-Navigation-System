@@ -148,7 +148,11 @@ export default function App(){
       )}
 
       <main className={`flex-1 relative ${isMobile ? 'pt-16' : ''}`}>
-        {isMobile && <TopNav onMenu={()=> setMobileMenuOpen(v=>!v)} menuOpen={mobileMenuOpen} disabled={isNavigating} theme={theme} setTheme={setTheme} />}
+        {isMobile && (
+          <div className={`fixed top-0 left-0 right-0 z-40 transition-transform duration-300 ${selected ? '-translate-y-full' : 'translate-y-0'}`}>
+            <TopNav onMenu={()=> setMobileMenuOpen(v=>!v)} menuOpen={mobileMenuOpen} disabled={isNavigating} theme={theme} setTheme={setTheme} />
+          </div>
+        )}
         <MapComponent
           center={[-6.7751,39.2086]}
           locations={filtered}
