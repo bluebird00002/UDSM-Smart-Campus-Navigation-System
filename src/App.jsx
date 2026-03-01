@@ -175,9 +175,11 @@ export default function App(){
             recent={recentSearches}
             onSelectLocation={handleLocationSelect}
              categories={["Academic","Services"]}
-             locations={mockLocations}
+             locations={filtered}
             filters={filters}
             setFilters={setFilters}
+            advancedFilters={advancedFilters}
+            setAdvancedFilters={setAdvancedFilters}
             menuOpen={mobileMenuOpen}
             isLoading={isLoading}
             theme={theme}

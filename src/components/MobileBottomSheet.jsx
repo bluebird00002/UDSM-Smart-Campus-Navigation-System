@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Gavel, Trophy } from 'lucide-react'
+import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Gavel, Trophy, Wifi, Fan, Zap, Users, Heart } from 'lucide-react'
 
-export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSearch,recent = [],onSelectLocation,categories,filters,setFilters, locations = [], menuOpen=false, isLoading=false, theme='light'}){
+export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSearch,recent = [],onSelectLocation,categories,filters,setFilters, locations = [], menuOpen=false, isLoading=false, theme='light', advancedFilters, setAdvancedFilters}){
   const [open,setOpen] = useState(false)
   const sheetRef = useRef(null)
   const startY = useRef(0)
@@ -195,6 +195,41 @@ export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSea
                 </div>
               ) : null}
             </div>
+
+            {/* Preferences Filters */}
+            {setAdvancedFilters && (
+              <div className="mb-6">
+                <div className="text-sm font-medium mb-3">Preferences</div>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    {key:'wifi', label:'WiFi', Icon: Wifi},
+                    {key:'ac', label:'AC', Icon: Fan},
+                    {key:'charging', label:'Charging', Icon: Zap},
+                    {key:'wheelchair', label:'Accessible', Icon: Users},
+                    {key:'parking', label:'Parking', Icon: MapPin},
+                    {key:'food', label:'Food', Icon: Heart}
+                  ].map(f=>{
+                    const active = Array.isArray(advancedFilters?.features) && advancedFilters.features.includes(f.key)
+                    const Icon = f.Icon
+                    return (
+                      <button key={f.key} onClick={()=>{
+                        setAdvancedFilters(a=>{
+                          const arr = Array.isArray(a.features)? [...a.features] : []
+                          if(arr.includes(f.key)){
+                            return {...a, features: arr.filter(x=>x!==f.key)}
+                          }
+                          arr.push(f.key)
+                          return {...a, features: arr}
+                        })
+                      }} className={`px-3 py-2 rounded-full flex items-center gap-2 whitespace-nowrap transition-colors ${active ? 'bg-udsm-blue text-white shadow-md' : theme === 'dark' ? 'bg-gray-800 text-gray-100 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+                        <Icon size={16} />
+                        <span className="text-sm">{f.label}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
 
             {recent.length > 0 && (
               <div>

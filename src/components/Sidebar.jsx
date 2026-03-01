@@ -130,13 +130,12 @@ export default function Sidebar({locations, searchQuery = '', suggestions = [], 
               <div className="text-sm font-medium mb-2">Preferences</div>
               <div className="flex flex-wrap gap-2 max-h-[96px] overflow-auto">
                 {[
-                  {key:'wifi', label:'Wifi', Icon: Wifi},
+                  {key:'wifi', label:'WiFi', Icon: Wifi},
                   {key:'ac', label:'AC', Icon: Fan},
-                  {key:'fans', label:'Fans', Icon: Fan},
-                  {key:'quiet', label:'Quiet', Icon: VolumeX},
-                  {key:'noisy', label:'Noisy', Icon: Volume1},
                   {key:'charging', label:'Charging', Icon: Zap},
-                  {key:'accessible', label:'Accessible', Icon: Users}
+                  {key:'wheelchair', label:'Accessible', Icon: Users},
+                  {key:'parking', label:'Parking', Icon: MapPin},
+                  {key:'food', label:'Food', Icon: Heart}
                 ].map(f=>{
                   const active = Array.isArray(advancedFilters?.features) && advancedFilters.features.includes(f.key)
                   const Icon = f.Icon
@@ -150,7 +149,7 @@ export default function Sidebar({locations, searchQuery = '', suggestions = [], 
                         arr.push(f.key)
                         return {...a, features: arr}
                       })
-                    }} className={`px-3 py-2 rounded-full flex items-center gap-2 ${active ? 'bg-udsm-blue text-white' : theme === 'dark' ? 'bg-gray-800 text-gray-100' : 'bg-gray-100 text-gray-700'}`}>
+                    }} className={`px-3 py-2 rounded-full flex items-center gap-2 whitespace-nowrap transition-colors ${active ? 'bg-udsm-blue text-white shadow-md' : theme === 'dark' ? 'bg-gray-800 text-gray-100 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
                       <Icon size={16} />
                       <span className="text-sm">{f.label}</span>
                     </button>
