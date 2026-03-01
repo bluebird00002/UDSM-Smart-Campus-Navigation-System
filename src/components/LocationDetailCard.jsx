@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Clock, Users, Briefcase, Calendar, Phone, Mail, User, CheckCircle, AlertCircle, XCircle, Navigation, Coffee, Wifi, Zap, Wind, Accessibility, BookOpen, Star, ChevronDown, MapPin } from 'lucide-react'
+import { Clock, Users, Briefcase, Calendar, Phone, Mail, User, CheckCircle, AlertCircle, XCircle, Navigation, Coffee, Wifi, Zap, Wind, Accessibility, BookOpen, Star, ChevronDown, MapPin, Car } from 'lucide-react'
 
 // Minimal mock dataset for fallback
 const UDSM_LOCATIONS = [
@@ -173,7 +173,7 @@ export default function LocationDetailCard({ locationId = 1, location: locationP
                   else if (key.includes('ac') || key.includes('air')) Icon = Wind
                   else if (key.includes('charge') || key.includes('power') || key.includes('outlet')) Icon = Zap
                   else if (key.includes('access') || key.includes('accessible')) Icon = Accessibility
-                  else if (key.includes('parking')) Icon = MapPin
+                  else if (key.includes('parking')) Icon = Car
                   else if (key.includes('food')) Icon = Coffee
                   return (
                     <span key={i} className={`px-3 py-1.5 rounded-full text-sm flex items-center gap-2 ${theme === 'dark' ? 'bg-gray-800 text-gray-100' : 'bg-gray-50 text-gray-800'}`}>

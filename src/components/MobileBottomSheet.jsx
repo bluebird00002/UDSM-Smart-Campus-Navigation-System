@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Building2, Trophy, Wifi, Fan, Zap, Users, Heart, ShoppingCart } from 'lucide-react'
+import { Search, Mic, MapPin, Clock, Coffee, BookOpen, Building2, Trophy, Wifi, Fan, Zap, Accessibility } from 'lucide-react'
 
 export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSearch,recent = [],onSelectLocation,categories,filters,setFilters, locations = [], menuOpen=false, isLoading=false, theme='light', advancedFilters, setAdvancedFilters}){
   const [open,setOpen] = useState(false)
@@ -121,7 +121,7 @@ export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSea
                 {key:'food', title:'Food', Icon: Coffee, items: ['Cafe 2, CoICT Cafeteria']},
                 {key:'admin', title:'Admin', Icon: Building2, items: ['Registry','Bursar','Student Affairs']},
                 {key:'sports', title:'Sports', Icon: Trophy, items: ['Football pitch','Netball','Basketball']},
-                {key:'stationery', title:'Stationery', Icon: ShoppingCart, items: ['Bindings','Printing','Accessories']}
+                {key:'stationery', title:'Stationery', Icon: BookOpen, items: ['Bindings','Printing','Accessories']}
               ].map(s=> (
                 <button key={s.key} onClick={()=>{ /* optional: set filter or quick-search */ }} className={`text-left p-3 border rounded-lg hover:shadow-md transition duration-150 flex flex-col gap-2 ${theme === 'dark' ? 'bg-gray-800 border-gray-700 hover:bg-gray-750' : 'bg-white border-gray-200'}`}>
                   <div className="flex items-center gap-3">
@@ -205,9 +205,9 @@ export default function MobileBottomSheet({searchQuery = '',suggestions=[],onSea
                     {key:'wifi', label:'WiFi', Icon: Wifi},
                     {key:'ac', label:'AC', Icon: Fan},
                     {key:'charging', label:'Charging', Icon: Zap},
-                    {key:'wheelchair', label:'Accessible', Icon: Users},
+                    {key:'wheelchair', label:'Accessible', Icon: Accessibility},
                     {key:'parking', label:'Parking', Icon: MapPin},
-                    {key:'food', label:'Food', Icon: Heart}
+                    {key:'food', label:'Food', Icon: Coffee}
                   ].map(f=>{
                     const active = Array.isArray(advancedFilters?.features) && advancedFilters.features.includes(f.key)
                     const Icon = f.Icon
