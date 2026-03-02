@@ -128,7 +128,7 @@ export default function Sidebar({locations, searchQuery = '', suggestions = [], 
 
             <div className="mt-4">
               <div className="text-sm font-medium mb-2">Preferences</div>
-              <div className="flex flex-wrap gap-2 max-h-[96px] overflow-auto hide-scrollbar">
+              <div className="flex flex-wrap gap-2 max-h-[84px] overflow-y-auto overflow-x-hidden hide-scrollbar">
                 {[
                   {key:'wifi', label:'WiFi', Icon: Wifi},
                   {key:'ac', label:'AC', Icon: Fan},
@@ -158,7 +158,7 @@ export default function Sidebar({locations, searchQuery = '', suggestions = [], 
               </div>
               <div className={`mt-4 p-3 rounded-lg shadow-sm ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                 <div className="text-sm font-medium mb-2">Most Searched</div>
-                  <div className={`space-y-2 max-h-[160px] overflow-auto hide-scrollbar ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>
+                  <div className={`space-y-2 max-h-[160px] overflow-y-auto overflow-x-hidden hide-scrollbar ${theme === 'dark' ? 'text-gray-100' : 'text-gray-900'}`}>
                   {locations && locations.slice(0,6).map(loc=> (
                     <button key={loc.id} onClick={()=> onSelect && onSelect(loc)} className={`w-full flex flex-col items-start gap-1 p-2 rounded min-w-0 text-left ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}`}>
                       <div className="text-sm font-medium truncate">{loc.name}</div>

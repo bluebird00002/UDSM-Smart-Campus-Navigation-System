@@ -189,8 +189,8 @@ export default function App(){
 
         {/* Render mobile drawer at root level so it sits above map and other stacking contexts */}
         {isMobile && (
-          <div className={`fixed inset-0 flex pointer-events-none`} aria-hidden={!mobileMenuOpen}>
-            <div className={`w-72 max-w-[80%] border-r shadow-lg transform transition-transform duration-300 ${theme === 'dark' ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'} ${mobileMenuOpen? 'translate-x-0 pointer-events-auto z-[99999]':'-translate-x-full pointer-events-none z-[99999]'}` }>
+          <div className={`fixed inset-0 flex pointer-events-none z-[99998]`} aria-hidden={!mobileMenuOpen}>
+            <div className={`w-72 max-w-[80%] border-r shadow-lg transform transition-transform duration-300 overflow-hidden ${theme === 'dark' ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'} ${mobileMenuOpen? 'translate-x-0 pointer-events-auto z-30':'-translate-x-full pointer-events-none z-30'}` }>
               <Sidebar
                 locations={mockLocations}
                 searchQuery={query}
